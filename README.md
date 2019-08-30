@@ -1,1 +1,1 @@
-# 2019-08-otus-spring-Bukharkin
+# ДЗ курса 2019-08-otus-spring

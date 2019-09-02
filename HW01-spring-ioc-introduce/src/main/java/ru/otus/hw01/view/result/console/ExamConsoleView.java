@@ -3,11 +3,11 @@ package ru.otus.hw01.view.result.console;
 import org.springframework.beans.factory.DisposableBean;
 import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.service.statistic.Statistic;
-import ru.otus.hw01.view.result.QuestionView;
+import ru.otus.hw01.view.result.ExamView;
 
 import java.util.Scanner;
 
-public class QuestionConsoleView implements QuestionView, DisposableBean {
+public class ExamConsoleView implements ExamView, DisposableBean {
 
     private final Scanner scanner = new Scanner(System.in);
 

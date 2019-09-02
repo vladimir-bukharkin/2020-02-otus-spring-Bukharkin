@@ -4,17 +4,17 @@ import ru.otus.hw01.dao.QuestionLDao;
 import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.service.statistic.Statistic;
 import ru.otus.hw01.service.statistic.StatisticFactory;
-import ru.otus.hw01.view.result.QuestionView;
+import ru.otus.hw01.view.result.ExamView;
 
 import java.util.List;
 
-public class DefaultQAService implements QAService {
+public class DefaultExamService implements ExamService {
 
-    private final QuestionView view;
     private final QuestionLDao dao;
+    private final ExamView view;
     private final StatisticFactory statisticFactory;
 
-    public DefaultQAService(QuestionLDao dao, QuestionView view, StatisticFactory statisticFactory) {
+    public DefaultExamService(QuestionLDao dao, ExamView view, StatisticFactory statisticFactory) {
         this.view = view;
         this.statisticFactory = statisticFactory;
         this.dao = dao;

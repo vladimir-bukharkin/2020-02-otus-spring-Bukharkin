@@ -12,13 +12,13 @@
         <constructor-arg name="dataLoader" ref="dataLoader"/>
     </bean>
 
-    <bean id="questionView" class="ru.otus.hw01.view.result.console.QuestionConsoleView"/>
+    <bean id="examView" class="ru.otus.hw01.view.result.console.ExamConsoleView"/>
 
     <bean id="statisticFactory" class="ru.otus.hw01.service.statistic.DefaultStatisticFactory"/>
 
-    <bean id="qaService" class="ru.otus.hw01.service.DefaultQAService">
+    <bean id="examService" class="ru.otus.hw01.service.DefaultExamService">
         <constructor-arg name="dao" ref="questionDao"/>
-        <constructor-arg name="view" ref="questionView"/>
+        <constructor-arg name="view" ref="examView"/>
         <constructor-arg name="statisticFactory" ref="statisticFactory"/>
     </bean>
 </beans>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataLoader" class="ru.otus.hw01.service.dataloader.QuestionCsvDataLoader">
+        <constructor-arg name="csvPath" value="questions.csv"/> <!--Захаркодил путь-->
+    </bean>
+
+    <bean id="questionDao" class="ru.otus.hw01.dao.QuestionLDao">
+        <constructor-arg name="dataLoader" ref="dataLoader"/>
+    </bean>
+
+    <bean id="questionView" class="ru.otus.hw01.view.result.console.QuestionConsoleView"/>
+    <bean id="statistic" class="ru.otus.hw01.service.statistic.DefaultStatisticService"/>
+
+    <bean id="qaService" class="ru.otus.hw01.service.DefaultQAService">
+        <constructor-arg name="dao" ref="questionDao"/>
+        <constructor-arg name="view" ref="questionView"/>
+        <constructor-arg name="statisticService" ref="statistic"/>
+    </bean>
+</beans>

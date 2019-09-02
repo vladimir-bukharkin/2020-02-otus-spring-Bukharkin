@@ -1,0 +1,6 @@
+id;question;answer;type
+1;firstQ;1,2,3;multiply
+2;secondQ;4;single
+3;thirdQ;;free_text
+4;fourQ;someAnswerText;text
+5;fiveQ;1;single

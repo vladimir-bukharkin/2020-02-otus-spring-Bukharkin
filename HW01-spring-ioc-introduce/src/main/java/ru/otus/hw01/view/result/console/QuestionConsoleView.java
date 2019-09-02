@@ -1,12 +1,15 @@
 package ru.otus.hw01.view.result.console;
 
+import org.springframework.beans.factory.DisposableBean;
 import ru.otus.hw01.domain.question.Question;
-import ru.otus.hw01.service.statistic.StatisticService;
+import ru.otus.hw01.service.statistic.Statistic;
 import ru.otus.hw01.view.result.QuestionView;
 
 import java.util.Scanner;
 
-public class QuestionConsoleView implements QuestionView {
+public class QuestionConsoleView implements QuestionView, DisposableBean {
+
+    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public String ask(Question question) {
@@ -19,20 +22,19 @@ public class QuestionConsoleView implements QuestionView {
                 break;
             case TEXT:
                 askTextQuestion(question);
+                break;
             default:
                 throw new InternalError("Not supported question type: " + question.getType());
         }
-        try(Scanner scanner = new Scanner(System.in)) {
-            return scanner.nextLine();
-        }
+        return scanner.nextLine();
     }
 
     @Override
-    public void printResults(StatisticService statisticService) {
+    public void printResults(Statistic statistic) {
         System.out.println("Результаты тестирования: " +
-                "\nВсего вопросов: " + statisticService.getQuestionsCount() +
-                "\nПравильных ответов: " + statisticService.getCorrectAnswersCount() +
-                "\nИтоговый балл: " + (int) statisticService.getCorrectAnswersPercent()); //Пусть округляет в меньшую сторону:)
+                "\nВсего вопросов: " + statistic.getQuestionsCount() +
+                "\nПравильных ответов: " + statistic.getCorrectAnswersCount() +
+                "\nИтоговый балл: " + statistic.getResultMark());
     }
 
     private void askSingleQuestion(Question question) {
@@ -51,5 +53,10 @@ public class QuestionConsoleView implements QuestionView {
         System.out.println(question.getQuestion() +
                 "\nВопрос c ответом в ввиде текста" +
                 "\nВведите ответ словами...");
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        scanner.close();
     }
 }

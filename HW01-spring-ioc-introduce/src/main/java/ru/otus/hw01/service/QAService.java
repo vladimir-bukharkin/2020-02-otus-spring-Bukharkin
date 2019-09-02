@@ -1,17 +1,13 @@
 package ru.otus.hw01.service;
 
 import ru.otus.hw01.domain.question.Question;
-import ru.otus.hw01.service.statistic.StatisticService;
+import ru.otus.hw01.service.statistic.Statistic;
 
 public interface QAService {
 
-    void askNextQuestion();
+    Statistic askQuestions();
 
-    void printResults();
-
-    boolean hasNextQuestion();
+    void printResults(Statistic statistic);
 
     boolean checkAnswer(Question question, String answer);
-
-    StatisticService getStatisticService();
 }

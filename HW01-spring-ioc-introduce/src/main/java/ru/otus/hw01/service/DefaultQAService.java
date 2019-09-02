@@ -2,49 +2,44 @@ package ru.otus.hw01.service;
 
 import ru.otus.hw01.dao.QuestionLDao;
 import ru.otus.hw01.domain.question.Question;
-import ru.otus.hw01.service.statistic.StatisticService;
+import ru.otus.hw01.service.statistic.Statistic;
+import ru.otus.hw01.service.statistic.StatisticFactory;
 import ru.otus.hw01.view.result.QuestionView;
 
-import java.util.Iterator;
+import java.util.List;
 
 public class DefaultQAService implements QAService {
 
     private final QuestionView view;
-    private final Iterator<Question> questions;
-    private final StatisticService statisticService;
+    private final QuestionLDao dao;
+    private final StatisticFactory statisticFactory;
 
-    public DefaultQAService(QuestionLDao dao, QuestionView view, StatisticService statisticService) {
+    public DefaultQAService(QuestionLDao dao, QuestionView view, StatisticFactory statisticFactory) {
         this.view = view;
-        this.statisticService = statisticService;
-        this.questions = dao.getAll().iterator();
+        this.statisticFactory = statisticFactory;
+        this.dao = dao;
     }
 
     @Override
-    public void askNextQuestion() {
-        Question question = questions.next();
-        String answer = view.ask(question);
-        if (checkAnswer(question, answer)) {
-            statisticService.addCorrectAnswer();
-        }
+    public Statistic askQuestions() {
+        List<Question> questions = dao.getAll();
+        Statistic statistic = statisticFactory.createStatistic(questions.size());
+        questions.forEach(question -> {
+            String answer = view.ask(question);
+            if (checkAnswer(question, answer)) {
+                statistic.incrementCorrectAnswers();
+            }
+        });
+        return statistic;
     }
 
     @Override
-    public void printResults() {
-        view.printResults(statisticService);
-    }
-
-    @Override
-    public boolean hasNextQuestion() {
-        return questions.hasNext();
+    public void printResults(Statistic statistic) {
+        view.printResults(statistic);
     }
 
     @Override
     public boolean checkAnswer(Question question, String answer) {
-        return question.getAnswer().equals(answer);
-    }
-
-    @Override
-    public StatisticService getStatisticService() {
-        return statisticService;
+        return question.getAnswer().equals(answer.trim().toLowerCase());
     }
 }

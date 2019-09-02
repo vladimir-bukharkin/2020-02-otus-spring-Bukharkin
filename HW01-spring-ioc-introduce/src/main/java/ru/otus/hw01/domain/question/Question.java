@@ -27,7 +27,7 @@ public class Question {
         this.id = id;
         this.question = question;
         this.answer = answer;
-        this.type = QuestionType.valueOf(type);
+        this.type = QuestionType.instanceOf(type);
     }
 
     public long getId() {

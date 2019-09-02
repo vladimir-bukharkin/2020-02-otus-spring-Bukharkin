@@ -1,27 +1,12 @@
 package ru.otus.hw01.service.statistic;
 
-import javax.validation.constraints.PositiveOrZero;
+public interface Statistic {
 
-public class Statistic {
+    void incrementCorrectAnswers();
 
-    @PositiveOrZero
-    private final int count;
-    @PositiveOrZero
-    private int correctAnswers;
+    int getQuestionsCount();
 
-    Statistic(int count) {
-        this.count = count;
-    }
+    int getCorrectAnswersCount();
 
-    void incrementCorrectAnswers() {
-        correctAnswers++;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public int getCorrectAnswers() {
-        return correctAnswers;
-    }
+    int getResultMark();
 }

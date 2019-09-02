@@ -1,6 +1,6 @@
-id;question;answer;type
-1;firstQ;1,2,3;multiply
-2;secondQ;4;single
-3;thirdQ;;free_text
-4;fourQ;someAnswerText;text
-5;fiveQ;1;single
+id,question,answer,type
+1,"Вопрос 1. Введите: ""4""",4,single
+2,"Вопрос 2. Введите: ""1,2,3""","1,2,3",multiply
+3,"Вопрос 3. Введите следующий текст: ""текст правильного ответа""","текст правильного ответа",text
+4,"Вопрос 4. Введите: ""3""",3,single
+5,"Вопрос 5. Введите: ""2""",2,multiply

@@ -2,7 +2,7 @@ package ru.otus.hw01.domain.question;
 
 import ru.otus.hw01.exception.DataException;
 import ru.otus.hw01.exception.ModuleException;
-import ru.otus.hw01.exception.NotSupportedTypeException;
+import ru.otus.hw01.exception.UnsupportedTypeException;
 
 public class Question {
 
@@ -25,7 +25,7 @@ public class Question {
         this.answer = answer;
         this.type = QuestionType.instanceOf(type);
         if (this.type == null) {
-            throw new NotSupportedTypeException(type);
+            throw new UnsupportedTypeException(type);
         }
         checkFields();
     }

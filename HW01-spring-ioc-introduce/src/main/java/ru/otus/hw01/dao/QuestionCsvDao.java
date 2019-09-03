@@ -1,4 +1,4 @@
-package ru.otus.hw01.service.dataloader;
+package ru.otus.hw01.dao;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -18,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class QuestionCsvDataLoader implements QuestionDataLoader {
+public class QuestionCsvDao implements QuestionDao {
 
     private final Path csvPath;
 
-    public QuestionCsvDataLoader(String csvPath) {
+    public QuestionCsvDao(String csvPath) {
         try {
             this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(csvPath)).toURI());
         } catch (URISyntaxException e) {
@@ -31,7 +31,7 @@ public class QuestionCsvDataLoader implements QuestionDataLoader {
     }
 
     @Override
-    public List<Question> loadAllToList() throws ModuleException {
+    public List<Question> getAll() throws ModuleException {
         List<Question> result = new ArrayList<>();
         try (Reader reader = Files.newBufferedReader(csvPath);
              CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT

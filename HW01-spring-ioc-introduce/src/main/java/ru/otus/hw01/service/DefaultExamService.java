@@ -1,6 +1,6 @@
 package ru.otus.hw01.service;
 
-import ru.otus.hw01.dao.QuestionLDao;
+import ru.otus.hw01.dao.QuestionCsvDao;
 import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.exception.ModuleException;
 import ru.otus.hw01.service.statistic.Statistic;
@@ -11,11 +11,11 @@ import java.util.List;
 
 public class DefaultExamService implements ExamService {
 
-    private final QuestionLDao dao;
+    private final QuestionCsvDao dao;
     private final ExamView view;
     private final StatisticFactory statisticFactory;
 
-    public DefaultExamService(QuestionLDao dao, ExamView view, StatisticFactory statisticFactory) {
+    public DefaultExamService(QuestionCsvDao dao, ExamView view, StatisticFactory statisticFactory) {
         this.view = view;
         this.statisticFactory = statisticFactory;
         this.dao = dao;

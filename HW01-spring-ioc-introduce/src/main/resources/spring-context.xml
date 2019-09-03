@@ -4,12 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="dataLoader" class="ru.otus.hw01.service.dataloader.QuestionCsvDataLoader">
+    <bean id="questionDao" class="ru.otus.hw01.dao.QuestionCsvDao">
         <constructor-arg name="csvPath" value="questions.csv"/> <!--Захаркодил путь-->
-    </bean>
-
-    <bean id="questionDao" class="ru.otus.hw01.dao.QuestionLDao">
-        <constructor-arg name="dataLoader" ref="dataLoader"/>
     </bean>
 
     <bean id="examView" class="ru.otus.hw01.view.console.ExamConsoleView"/>

@@ -1,6 +1,7 @@
 package ru.otus.hw01.dao;
 
 import ru.otus.hw01.domain.question.Question;
+import ru.otus.hw01.exception.ModuleException;
 import ru.otus.hw01.service.dataloader.QuestionDataLoader;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class QuestionLDao implements QuestionDao {
     }
 
     @Override
-    public List<Question> getAll() {
+    public List<Question> getAll() throws ModuleException {
         return dataLoader.loadAllToList();
     }
 }

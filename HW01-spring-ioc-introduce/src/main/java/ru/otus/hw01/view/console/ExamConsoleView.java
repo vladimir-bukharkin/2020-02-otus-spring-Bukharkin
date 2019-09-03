@@ -1,9 +1,9 @@
-package ru.otus.hw01.view.result.console;
+package ru.otus.hw01.view.console;
 
 import org.springframework.beans.factory.DisposableBean;
 import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.service.statistic.Statistic;
-import ru.otus.hw01.view.result.ExamView;
+import ru.otus.hw01.view.ExamView;
 
 import java.util.Scanner;
 

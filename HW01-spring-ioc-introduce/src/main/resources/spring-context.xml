@@ -12,7 +12,7 @@
         <constructor-arg name="dataLoader" ref="dataLoader"/>
     </bean>
 
-    <bean id="examView" class="ru.otus.hw01.view.result.console.ExamConsoleView"/>
+    <bean id="examView" class="ru.otus.hw01.view.console.ExamConsoleView"/>
 
     <bean id="statisticFactory" class="ru.otus.hw01.service.statistic.DefaultStatisticFactory"/>
 

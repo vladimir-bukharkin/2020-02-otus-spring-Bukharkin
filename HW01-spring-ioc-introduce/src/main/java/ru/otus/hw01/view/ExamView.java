@@ -1,4 +1,4 @@
-package ru.otus.hw01.view.result;
+package ru.otus.hw01.view;
 
 import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.service.statistic.Statistic;

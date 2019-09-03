@@ -2,9 +2,10 @@ package ru.otus.hw01.service;
 
 import ru.otus.hw01.dao.QuestionLDao;
 import ru.otus.hw01.domain.question.Question;
+import ru.otus.hw01.exception.ModuleException;
 import ru.otus.hw01.service.statistic.Statistic;
 import ru.otus.hw01.service.statistic.StatisticFactory;
-import ru.otus.hw01.view.result.ExamView;
+import ru.otus.hw01.view.ExamView;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class DefaultExamService implements ExamService {
     }
 
     @Override
-    public Statistic askQuestions() {
+    public Statistic askQuestions() throws ModuleException {
         List<Question> questions = dao.getAll();
         Statistic statistic = statisticFactory.createStatistic(questions.size());
         questions.forEach(question -> {

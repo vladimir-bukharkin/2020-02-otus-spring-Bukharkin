@@ -1,21 +1,14 @@
 package ru.otus.hw01.domain.question;
 
-import org.springframework.lang.NonNull;
 import ru.otus.hw01.exception.DataException;
 import ru.otus.hw01.exception.ModuleException;
 import ru.otus.hw01.exception.NotSupportedTypeException;
 
-import javax.validation.constraints.NotBlank;
-
 public class Question {
 
     private final long id;
-    @NonNull
-    @NotBlank
     private final String question;
     private final String answer;
-    @NonNull
-    @NotBlank
     private final QuestionType type;
 
     public Question(long id, String question, String answer, QuestionType type) throws ModuleException {

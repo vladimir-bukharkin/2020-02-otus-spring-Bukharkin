@@ -4,9 +4,9 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import ru.otus.hw01.domain.question.Question;
-import ru.otus.hw01.exception.DataException;
 import ru.otus.hw01.exception.IOModuleException;
 import ru.otus.hw01.exception.ModuleException;
+import ru.otus.hw01.exception.QuestionParsingException;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -45,16 +45,18 @@ public class QuestionCsvDao implements QuestionDao {
             }
         } catch (IOException e) {
             throw new IOModuleException(e);
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            throw new QuestionParsingException(e);
         }
         return result;
     }
 
-    private long parseId(CSVRecord csvRecord) throws DataException {
+    private long parseId(CSVRecord csvRecord) throws QuestionParsingException {
         String id = csvRecord.get("id");
         try {
             return Long.parseLong(id);
         } catch (NumberFormatException e) {
-            throw new DataException("Parse id error. Id value: " + id, e);
+            throw new QuestionParsingException("Parse id to long error. Id value: " + id, e);
         }
     }
 }

@@ -1,6 +1,6 @@
 package ru.otus.hw01.exception;
 
-public class ModuleException extends Exception{
+public class ModuleException extends Exception {
 
     public ModuleException() {
     }

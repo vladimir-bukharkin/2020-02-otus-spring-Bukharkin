@@ -1,8 +1,8 @@
 package ru.otus.hw01.domain.question;
 
-import ru.otus.hw01.exception.DataException;
 import ru.otus.hw01.exception.ModuleException;
 import ru.otus.hw01.exception.UnsupportedTypeException;
+import ru.otus.hw01.service.validator.QuestionValidator;
 
 public class Question {
 
@@ -16,7 +16,7 @@ public class Question {
         this.question = question;
         this.answer = answer;
         this.type = type;
-        checkFields();
+        QuestionValidator.validate(this);
     }
 
     public Question(long id, String question, String answer, String type) throws ModuleException {
@@ -27,7 +27,7 @@ public class Question {
         if (this.type == null) {
             throw new UnsupportedTypeException(type);
         }
-        checkFields();
+        QuestionValidator.validate(this);
     }
 
     public long getId() {
@@ -44,17 +44,5 @@ public class Question {
 
     public QuestionType getType() {
         return type;
-    }
-
-    private void checkFields() throws DataException {
-        if (id < 1) {
-            throw new DataException("Id", id);
-        }
-        if (question == null || question.isEmpty()) {
-            throw new DataException("Question", id);
-        }
-        if (type == null) {
-            throw new DataException("Type", type);
-        }
     }
 }

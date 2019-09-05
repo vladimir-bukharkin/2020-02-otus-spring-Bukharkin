@@ -1,12 +1,28 @@
 package ru.otus.hw01.service.statistic;
 
-public interface Statistic {
+import ru.otus.hw01.exception.DataException;
 
-    void incrementCorrectAnswers();
+public class Statistic {
 
-    int getQuestionsCount();
+    private final int count;
+    private int correctAnswers;
 
-    int getCorrectAnswersCount();
+    public Statistic(int count) throws DataException {
+        if (count < 1) {
+            throw new DataException("Questions count", count);
+        }
+        this.count = count;
+    }
 
-    int getResultMark();
+    public void incrementCorrectAnswers() {
+        correctAnswers++;
+    }
+
+    public int getQuestionsCount() {
+        return count;
+    }
+
+    public int getCorrectAnswersCount() {
+        return correctAnswers;
+    }
 }

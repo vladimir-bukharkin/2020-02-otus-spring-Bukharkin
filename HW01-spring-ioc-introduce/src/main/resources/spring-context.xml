@@ -8,13 +8,14 @@
         <constructor-arg name="csvPath" value="questions.csv"/> <!--Захаркодил путь-->
     </bean>
 
-    <bean id="interactionService" class="ru.otus.hw01.interaction.console.ExamConsoleInteractionService"/>
+    <bean id="statisticCalculator" class="ru.otus.hw01.service.statistic.DefaultStatisticCalculator"/>
 
-    <bean id="statisticFactory" class="ru.otus.hw01.service.statistic.DefaultStatisticFactory"/>
+    <bean id="interactionService" class="ru.otus.hw01.interaction.console.ExamConsoleInteractionService">
+        <constructor-arg name="statisticCalculator" ref="statisticCalculator"/>
+    </bean>
 
     <bean id="examService" class="ru.otus.hw01.service.DefaultExamService">
         <constructor-arg name="dao" ref="questionDao"/>
         <constructor-arg name="interactionService" ref="interactionService"/>
-        <constructor-arg name="statisticFactory" ref="statisticFactory"/>
     </bean>
 </beans>

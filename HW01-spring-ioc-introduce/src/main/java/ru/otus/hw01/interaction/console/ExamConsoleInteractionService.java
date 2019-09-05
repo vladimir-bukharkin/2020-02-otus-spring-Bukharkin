@@ -1,14 +1,20 @@
 package ru.otus.hw01.interaction.console;
 
 import ru.otus.hw01.domain.question.Question;
-import ru.otus.hw01.service.statistic.Statistic;
 import ru.otus.hw01.interaction.ExamInteractionService;
+import ru.otus.hw01.service.statistic.Statistic;
+import ru.otus.hw01.service.statistic.StatisticCalculator;
 
 import java.util.Scanner;
 
 public class ExamConsoleInteractionService implements ExamInteractionService {
 
     private final Scanner scanner = new Scanner(System.in);
+    private final StatisticCalculator statisticCalculator;
+
+    public ExamConsoleInteractionService(StatisticCalculator statisticCalculator) {
+        this.statisticCalculator = statisticCalculator;
+    }
 
     @Override
     public String ask(Question question) {
@@ -33,7 +39,7 @@ public class ExamConsoleInteractionService implements ExamInteractionService {
         System.out.println("Результаты тестирования: " +
                 "\nВсего вопросов: " + statistic.getQuestionsCount() +
                 "\nПравильных ответов: " + statistic.getCorrectAnswersCount() +
-                "\nИтоговый балл: " + statistic.getResultMark());
+                "\nИтоговый балл: " + statisticCalculator.getResultMark(statistic));
     }
 
     private void askSingleQuestion(Question question) {

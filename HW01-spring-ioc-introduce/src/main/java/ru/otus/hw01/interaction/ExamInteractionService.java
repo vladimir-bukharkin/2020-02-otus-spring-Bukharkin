@@ -1,9 +1,9 @@
-package ru.otus.hw01.view;
+package ru.otus.hw01.interaction;
 
 import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.service.statistic.Statistic;
 
-public interface ExamView {
+public interface ExamInteractionService {
 
     String ask(Question question);
 

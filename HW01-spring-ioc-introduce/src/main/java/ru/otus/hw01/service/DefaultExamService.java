@@ -5,18 +5,18 @@ import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.exception.ModuleException;
 import ru.otus.hw01.service.statistic.Statistic;
 import ru.otus.hw01.service.statistic.StatisticFactory;
-import ru.otus.hw01.view.ExamView;
+import ru.otus.hw01.interaction.ExamInteractionService;
 
 import java.util.List;
 
 public class DefaultExamService implements ExamService {
 
     private final QuestionCsvDao dao;
-    private final ExamView view;
+    private final ExamInteractionService interactionService;
     private final StatisticFactory statisticFactory;
 
-    public DefaultExamService(QuestionCsvDao dao, ExamView view, StatisticFactory statisticFactory) {
-        this.view = view;
+    public DefaultExamService(QuestionCsvDao dao, ExamInteractionService interactionService, StatisticFactory statisticFactory) {
+        this.interactionService = interactionService;
         this.statisticFactory = statisticFactory;
         this.dao = dao;
     }
@@ -26,7 +26,7 @@ public class DefaultExamService implements ExamService {
         List<Question> questions = dao.getAll();
         Statistic statistic = statisticFactory.createStatistic(questions.size());
         questions.forEach(question -> {
-            String answer = view.ask(question);
+            String answer = interactionService.ask(question);
             if (checkAnswer(question, answer)) {
                 statistic.incrementCorrectAnswers();
             }
@@ -36,7 +36,7 @@ public class DefaultExamService implements ExamService {
 
     @Override
     public void printResults(Statistic statistic) {
-        view.printResults(statistic);
+        interactionService.printResults(statistic);
     }
 
     @Override

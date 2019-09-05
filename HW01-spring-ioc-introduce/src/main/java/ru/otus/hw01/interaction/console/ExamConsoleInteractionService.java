@@ -1,13 +1,12 @@
-package ru.otus.hw01.view.console;
+package ru.otus.hw01.interaction.console;
 
-import org.springframework.beans.factory.DisposableBean;
 import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.service.statistic.Statistic;
-import ru.otus.hw01.view.ExamView;
+import ru.otus.hw01.interaction.ExamInteractionService;
 
 import java.util.Scanner;
 
-public class ExamConsoleView implements ExamView, DisposableBean {
+public class ExamConsoleInteractionService implements ExamInteractionService {
 
     private final Scanner scanner = new Scanner(System.in);
 
@@ -53,10 +52,5 @@ public class ExamConsoleView implements ExamView, DisposableBean {
         System.out.println(question.getQuestion() +
                 "\nВопрос c ответом в ввиде текста" +
                 "\nВведите ответ словами...");
-    }
-
-    @Override
-    public void destroy() throws Exception {
-        scanner.close();
     }
 }

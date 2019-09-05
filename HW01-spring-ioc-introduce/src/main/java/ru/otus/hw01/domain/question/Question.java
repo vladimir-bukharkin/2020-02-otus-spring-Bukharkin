@@ -2,7 +2,7 @@ package ru.otus.hw01.domain.question;
 
 import ru.otus.hw01.exception.ModuleException;
 import ru.otus.hw01.exception.UnsupportedTypeException;
-import ru.otus.hw01.service.validator.QuestionValidator;
+import ru.otus.hw01.validator.QuestionValidator;
 
 public class Question {
 

@@ -1,4 +1,4 @@
-package ru.otus.hw01.service.validator;
+package ru.otus.hw01.validator;
 
 import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.exception.DataException;

@@ -19,7 +19,7 @@ public class DefaultExamService implements ExamService {
     }
 
     @Override
-    public Statistic askQuestions() throws ModuleException {
+    public void askQuestions() throws ModuleException {
         List<Question> questions = dao.getAll();
         Statistic statistic = new Statistic(questions.size());
         questions.forEach(question -> {
@@ -28,7 +28,7 @@ public class DefaultExamService implements ExamService {
                 statistic.incrementCorrectAnswers();
             }
         });
-        return statistic;
+        printResults(statistic);
     }
 
     @Override

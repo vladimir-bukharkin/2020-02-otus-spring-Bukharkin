@@ -1,17 +1,19 @@
 package ru.otus.hw01.service.io;
 
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public class ConsoleIOStringService implements IOStringService {
 
     @Override
-    public void write(String s) {
-        System.out.println(s);
+    public void write(String s, PrintStream ps) {
+        ps.println(s);
     }
 
     @Override
-    public String readLine() {
-        Scanner scanner = new Scanner(System.in);
+    public String readLine(InputStream is) {
+        Scanner scanner = new Scanner(is);
         return scanner.nextLine();
     }
 }

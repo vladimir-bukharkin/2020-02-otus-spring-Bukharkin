@@ -31,7 +31,7 @@ public class ExamConsoleInteractionService implements ExamInteractionService {
             default:
                 throw new InternalError("Not supported question type: " + question.getType());
         }
-        return ioStringService.readLine();
+        return ioStringService.readLine(System.in);
     }
 
     @Override
@@ -39,24 +39,24 @@ public class ExamConsoleInteractionService implements ExamInteractionService {
         ioStringService.write("Результаты тестирования: " +
                 "\nВсего вопросов: " + statistic.getQuestionsCount() +
                 "\nПравильных ответов: " + statistic.getCorrectAnswersCount() +
-                "\nИтоговый балл: " + statisticCalculator.getResultMark(statistic));
+                "\nИтоговый балл: " + statisticCalculator.getResultMark(statistic), System.out);
     }
 
     private void askSingleQuestion(Question question) {
         ioStringService.write(question.getQuestion() +
                 "\nВопрос с единственным вариантом ответа" +
-                "\nВведите номер правильного варианта ответа...");
+                "\nВведите номер правильного варианта ответа...", System.out);
     }
 
     private void askMultiplyQuestion(Question question) {
         ioStringService.write(question.getQuestion() +
                 "\nВопрос с несколькими вариантами ответа" +
-                "\nВведите номера правильных вариантов ответа через \",\" (Пример: 1,3,5)...");
+                "\nВведите номера правильных вариантов ответа через \",\" (Пример: 1,3,5)...", System.out);
     }
 
     private void askTextQuestion(Question question) {
         ioStringService.write(question.getQuestion() +
                 "\nВопрос c ответом в ввиде текста" +
-                "\nВведите ответ словами...");
+                "\nВведите ответ словами...", System.out);
     }
 }

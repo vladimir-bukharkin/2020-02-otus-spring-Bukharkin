@@ -6,7 +6,7 @@ import ru.otus.hw01.service.statistic.Statistic;
 
 public interface ExamService {
 
-    Statistic askQuestions() throws ModuleException;
+    void askQuestions() throws ModuleException;
 
     void printResults(Statistic statistic);
 

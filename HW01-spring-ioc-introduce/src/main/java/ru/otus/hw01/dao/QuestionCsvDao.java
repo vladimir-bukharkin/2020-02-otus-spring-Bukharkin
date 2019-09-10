@@ -7,6 +7,7 @@ import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.exception.IOModuleException;
 import ru.otus.hw01.exception.ModuleException;
 import ru.otus.hw01.exception.QuestionParsingException;
+import ru.otus.hw01.service.validator.QuestionValidator;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -21,13 +22,15 @@ import java.util.Objects;
 public class QuestionCsvDao implements QuestionDao {
 
     private final Path csvPath;
+    private final QuestionValidator questionValidator;
 
-    public QuestionCsvDao(String csvPath) {
+    public QuestionCsvDao(String csvPath, QuestionValidator questionValidator) {
         try {
             this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(csvPath)).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
+        this.questionValidator = questionValidator;
     }
 
     @Override
@@ -41,6 +44,7 @@ public class QuestionCsvDao implements QuestionDao {
                         csvRecord.get("question"),
                         csvRecord.get("answer"),
                         csvRecord.get("type"));
+                questionValidator.validate(question);
                 result.add(question);
             }
         } catch (IOException e) {

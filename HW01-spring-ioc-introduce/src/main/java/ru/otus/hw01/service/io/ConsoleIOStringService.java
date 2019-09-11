@@ -1,9 +1,12 @@
 package ru.otus.hw01.service.io;
 
+import org.springframework.stereotype.Service;
+
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+@Service
 public class ConsoleIOStringService implements IOStringService {
 
     @Override

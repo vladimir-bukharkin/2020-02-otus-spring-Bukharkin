@@ -1,11 +1,13 @@
 package ru.otus.hw01.service.interaction.console;
 
+import org.springframework.stereotype.Service;
 import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.service.interaction.ExamInteractionService;
 import ru.otus.hw01.service.io.IOStringService;
 import ru.otus.hw01.service.statistic.Statistic;
 import ru.otus.hw01.service.statistic.StatisticCalculator;
 
+@Service
 public class ExamConsoleInteractionService implements ExamInteractionService {
 
     private final IOStringService ioStringService;

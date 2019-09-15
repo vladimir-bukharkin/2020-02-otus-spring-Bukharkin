@@ -17,10 +17,10 @@ public class DefaultLocalization implements Localization {
 
     public DefaultLocalization(@Value("${locale.language}") String locale,
                                MessageSource messageSource,
-                               @Value("#{ T(java.util.Locale).forLanguageTag('${locale.language}') eq T(java.util.Locale).ENGLISH ? '${locale.questions.path.en}' : '${locale.questions.path.ru}'}") String questionPath) {
+                               @Value("${questions.path}") String questionsPath) {
         this.messageSource = messageSource;
         this.locale = Locale.forLanguageTag(locale);
-        this.questionsPath = questionPath;
+        this.questionsPath = String.format(questionsPath, locale);
     }
 
     @Override

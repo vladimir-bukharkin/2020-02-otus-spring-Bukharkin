@@ -3,7 +3,6 @@ package ru.otus.hw02.dao;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Repository;
 import ru.otus.hw02.domain.question.Question;
 import ru.otus.hw02.exception.IOModuleException;
@@ -23,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-@PropertySource("classpath:application.properties")
 public class QuestionCsvDao implements QuestionDao {
 
     private final Path csvPath;
@@ -31,7 +29,7 @@ public class QuestionCsvDao implements QuestionDao {
 
     public QuestionCsvDao(QuestionValidator questionValidator, Localization localization) {
         try {
-            this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(localization.getQuestionsPath())).toURI());
+            this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(localization.getConfig().getQuestionsPath())).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

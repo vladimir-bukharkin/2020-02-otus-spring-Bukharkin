@@ -1,17 +1,13 @@
 package ru.otus.hw01;
 
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.otus.hw01.exception.ModuleException;
 import ru.otus.hw01.service.ExamService;
 
-@Configuration
-@ComponentScan
 public class Main {
 
     public static void main(String[] args) throws ModuleException {
-        try(AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class)) {
+        try(ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("/spring-context.xml")) {
             ExamService examService = context.getBean(ExamService.class);
             examService.askQuestions();
         }

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>otus</groupId>
-    <artifactId>HW-02-annotaion-java-based-config</artifactId>
+    <artifactId>HW02-annotation-java-based-config</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

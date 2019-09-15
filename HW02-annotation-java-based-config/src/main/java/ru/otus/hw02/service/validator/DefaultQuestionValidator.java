@@ -1,9 +1,11 @@
 package ru.otus.hw02.service.validator;
 
+import org.springframework.stereotype.Service;
 import ru.otus.hw02.domain.question.Question;
 import ru.otus.hw02.exception.DataException;
 import ru.otus.hw02.exception.ModuleException;
 
+@Service
 public class DefaultQuestionValidator implements QuestionValidator {
 
     @Override

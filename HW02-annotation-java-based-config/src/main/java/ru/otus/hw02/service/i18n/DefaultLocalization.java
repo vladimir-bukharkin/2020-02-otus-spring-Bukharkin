@@ -1,4 +1,4 @@
-package ru.otus.hw01.service.i18n;
+package ru.otus.hw02.service.i18n;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;

@@ -3,13 +3,10 @@ package ru.otus.hw01.dao;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Repository;
 import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.exception.IOModuleException;
 import ru.otus.hw01.exception.ModuleException;
 import ru.otus.hw01.exception.QuestionParsingException;
-import ru.otus.hw01.service.i18n.Localization;
 import ru.otus.hw01.service.validator.QuestionValidator;
 
 import java.io.IOException;
@@ -22,16 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Repository
-@PropertySource("classpath:application.properties")
 public class QuestionCsvDao implements QuestionDao {
 
     private final Path csvPath;
     private final QuestionValidator questionValidator;
 
-    public QuestionCsvDao(QuestionValidator questionValidator, Localization localization) {
+    public QuestionCsvDao(String csvPath, QuestionValidator questionValidator) {
         try {
-            this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(localization.getQuestionsPath())).toURI());
+            this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(csvPath)).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

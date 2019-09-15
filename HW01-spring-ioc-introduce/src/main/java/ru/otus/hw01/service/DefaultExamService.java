@@ -1,6 +1,5 @@
 package ru.otus.hw01.service;
 
-import org.springframework.stereotype.Service;
 import ru.otus.hw01.dao.QuestionCsvDao;
 import ru.otus.hw01.domain.question.Question;
 import ru.otus.hw01.exception.ModuleException;
@@ -9,7 +8,6 @@ import ru.otus.hw01.service.statistic.Statistic;
 
 import java.util.List;
 
-@Service
 public class DefaultExamService implements ExamService {
 
     private final QuestionCsvDao dao;

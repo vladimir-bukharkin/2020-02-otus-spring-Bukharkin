@@ -1,5 +1,8 @@
 package ru.otus.hw02.service.statistic;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class DefaultStatisticCalculator implements StatisticCalculator {
 
     @Override

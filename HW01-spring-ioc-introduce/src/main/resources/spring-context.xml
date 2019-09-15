@@ -4,23 +4,23 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="questionValidator" class="ru.otus.hw02.service.validator.DefaultQuestionValidator"/>
+    <bean id="questionValidator" class="ru.otus.hw01.service.validator.DefaultQuestionValidator"/>
 
-    <bean id="questionDao" class="ru.otus.hw02.dao.QuestionCsvDao">
+    <bean id="questionDao" class="ru.otus.hw01.dao.QuestionCsvDao">
         <constructor-arg name="csvPath" value="questions.csv"/> <!--Захаркодил путь-->
         <constructor-arg name="questionValidator" ref="questionValidator"/>
     </bean>
 
-    <bean id="ioStringService" class="ru.otus.hw02.service.io.ConsoleIOStringService"/>
+    <bean id="ioStringService" class="ru.otus.hw01.service.io.ConsoleIOStringService"/>
 
-    <bean id="statisticCalculator" class="ru.otus.hw02.service.statistic.DefaultStatisticCalculator"/>
+    <bean id="statisticCalculator" class="ru.otus.hw01.service.statistic.DefaultStatisticCalculator"/>
 
-    <bean id="interactionService" class="ru.otus.hw02.service.interaction.console.ExamConsoleInteractionService">
+    <bean id="interactionService" class="ru.otus.hw01.service.interaction.console.ExamConsoleInteractionService">
         <constructor-arg name="statisticCalculator" ref="statisticCalculator"/>
         <constructor-arg name="ioStringService" ref="ioStringService"/>
     </bean>
 
-    <bean id="examService" class="ru.otus.hw02.service.DefaultExamService">
+    <bean id="examService" class="ru.otus.hw01.service.DefaultExamService">
         <constructor-arg name="dao" ref="questionDao"/>
         <constructor-arg name="interactionService" ref="interactionService"/>
     </bean>

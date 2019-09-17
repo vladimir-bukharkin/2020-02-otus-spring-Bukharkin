@@ -29,7 +29,7 @@ public class QuestionCsvDao implements QuestionDao {
 
     public QuestionCsvDao(QuestionValidator questionValidator, Localization localization) {
         try {
-            this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(localization.getConfig().getQuestionsPath())).toURI());
+            this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(localization.getQuestionsPath())).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

@@ -1,8 +1,9 @@
 package ru.otus.hw03.service;
 
 import org.springframework.stereotype.Service;
-import ru.otus.hw03.dao.QuestionCsvDao;
+import ru.otus.hw03.dao.QuestionDao;
 import ru.otus.hw03.exception.ModuleException;
+import ru.otus.hw03.exception.QuestionsEmptyException;
 import ru.otus.hw03.question.Question;
 import ru.otus.hw03.service.interaction.ExamInteractionService;
 import ru.otus.hw03.service.statistic.Statistic;
@@ -12,10 +13,10 @@ import java.util.List;
 @Service
 public class DefaultExamService implements ExamService {
 
-    private final QuestionCsvDao dao;
+    private final QuestionDao dao;
     private final ExamInteractionService interactionService;
 
-    public DefaultExamService(QuestionCsvDao dao, ExamInteractionService interactionService) {
+    public DefaultExamService(QuestionDao dao, ExamInteractionService interactionService) {
         this.interactionService = interactionService;
         this.dao = dao;
     }
@@ -23,6 +24,9 @@ public class DefaultExamService implements ExamService {
     @Override
     public void askQuestions() throws ModuleException {
         List<Question> questions = dao.getAll();
+        if (questions == null || questions.isEmpty()) {
+            throw new QuestionsEmptyException();
+        }
         Statistic statistic = new Statistic(questions.size());
         questions.forEach(question -> {
             String answer = interactionService.ask(question);

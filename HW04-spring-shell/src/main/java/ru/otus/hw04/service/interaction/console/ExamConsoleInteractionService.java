@@ -43,10 +43,14 @@ public class ExamConsoleInteractionService implements ExamInteractionService {
 
     @Override
     public void printResults(Statistic statistic) {
-        ioStringService.write(localization.getMessage("test.results") +
-                "\n" + localization.getMessage("question.amount") + ": " + statistic.getQuestionsCount() +
-                "\n" + localization.getMessage("question.correct") + ": " + statistic.getCorrectAnswersCount() +
-                "\n" + localization.getMessage("test.result.final.score") + ": " + statisticCalculator.getResultMark(statistic), System.out);
+        if (statistic == null) {
+            ioStringService.write(localization.getMessage("test.result.not_find"), System.out);
+        } else {
+            ioStringService.write(localization.getMessage("test.results") +
+                    "\n" + localization.getMessage("question.amount") + ": " + statistic.getQuestionsCount() +
+                    "\n" + localization.getMessage("question.correct") + ": " + statistic.getCorrectAnswersCount() +
+                    "\n" + localization.getMessage("test.result.final.score") + ": " + statisticCalculator.getResultMark(statistic), System.out);
+        }
     }
 
     private void askSingleQuestion(Question question) {

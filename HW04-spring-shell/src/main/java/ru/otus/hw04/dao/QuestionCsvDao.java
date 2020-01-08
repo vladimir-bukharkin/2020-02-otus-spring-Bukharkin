@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,7 +38,7 @@ public class QuestionCsvDao implements QuestionDao {
     }
 
     @Override
-    public List<Question> getAll() throws ModuleException {
+    public Collection<Question> getAll() throws ModuleException {
         List<Question> result = new ArrayList<>();
         try (Reader reader = Files.newBufferedReader(csvPath);
              CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT

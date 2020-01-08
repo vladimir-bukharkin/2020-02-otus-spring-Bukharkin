@@ -38,7 +38,7 @@ class ExamConsoleInteractionTest {
 
 	@Test
 	@DisplayName("Проверяет, что getAll() возвращает правильные значения")
-	void testAskSingleQuestion() throws ModuleException {
+	void testAskSingleQuestion() {
 		String expectedOutput = "some question\n" +
 				"question.single.correct.answer\n" +
 				"fill.answer.single...";

@@ -14,6 +14,7 @@ import ru.otus.hw04.exception.QuestionsEmptyException;
 import ru.otus.hw04.question.Question;
 import ru.otus.hw04.question.QuestionType;
 import ru.otus.hw04.service.ExamService;
+import ru.otus.hw04.service.login.User;
 import ru.otus.hw04.service.statistic.Statistic;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ class ExamServiceTest {
             return statistic;
         }).when(examInteractionService).printResults(Mockito.any(Statistic.class));
 
-        examService.askQuestions();
+        examService.startExam(new User("student"));
 
         Statistic actual = statistic.get();
         Assertions.assertThat(actual.getCorrectAnswersCount()).isEqualTo(3);
@@ -54,13 +55,13 @@ class ExamServiceTest {
     @Test
     void askWithoutQuestionsTest() throws ModuleException {
         Mockito.when(questionDao.getAll()).then(inv -> Collections.emptyList());
-        Assertions.assertThatThrownBy(() -> examService.askQuestions()).isExactlyInstanceOf(QuestionsEmptyException.class);
+        Assertions.assertThatThrownBy(() -> examService.startExam(new User("student"))).isExactlyInstanceOf(QuestionsEmptyException.class);
     }
 
     @Test
     void askNullQuestionsTest() throws ModuleException {
         Mockito.when(questionDao.getAll()).then(inv -> null);
-        Assertions.assertThatThrownBy(() -> examService.askQuestions()).isExactlyInstanceOf(QuestionsEmptyException.class);
+        Assertions.assertThatThrownBy(() -> examService.startExam(new User("student"))).isExactlyInstanceOf(QuestionsEmptyException.class);
     }
 
     private List<Question> getTestQuestions() throws ModuleException {

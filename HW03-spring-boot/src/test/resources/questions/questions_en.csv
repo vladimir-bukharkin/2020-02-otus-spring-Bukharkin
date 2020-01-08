@@ -1,0 +1,5 @@
+id,question,answer,type
+1,"Question 1. Enter: ""4""",4,single
+2,"Question 2. Enter: ""1,2,3""","1,2,3",multiply
+3,"Question 3. Enter text: ""correct answer text""","correct answer text",text
+4,"Question 4. Enter: ""3""",3,single

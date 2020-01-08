@@ -3,6 +3,8 @@ package ru.otus.hw03.question;
 import ru.otus.hw03.exception.ModuleException;
 import ru.otus.hw03.exception.UnsupportedTypeException;
 
+import java.util.Objects;
+
 public class Question {
 
     private final long id;
@@ -41,5 +43,31 @@ public class Question {
 
     public QuestionType getType() {
         return type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question1 = (Question) o;
+        return id == question1.id &&
+                Objects.equals(question, question1.question) &&
+                Objects.equals(answer, question1.answer) &&
+                type == question1.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, question, answer, type);
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                ", type=" + type +
+                '}';
     }
 }

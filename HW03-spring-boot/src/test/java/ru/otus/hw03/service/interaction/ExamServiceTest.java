@@ -1,13 +1,13 @@
 package ru.otus.hw03.service.interaction;
 
 import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ru.otus.hw03.dao.QuestionDao;
 import ru.otus.hw03.exception.ModuleException;
 import ru.otus.hw03.exception.QuestionsEmptyException;
@@ -21,9 +21,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class ExamServiceTest {
+@ExtendWith(SpringExtension.class)
+class ExamServiceTest {
 
     @MockBean
     private QuestionDao questionDao;
@@ -35,7 +35,7 @@ public class ExamServiceTest {
     private ExamService examService;
 
     @Test
-    public void askQuestionsTest() throws ModuleException {
+    void askQuestionsTest() throws ModuleException {
         Mockito.when(questionDao.getAll()).then(inv -> getTestQuestions());
         Mockito.when(examInteractionService.ask(Mockito.any(Question.class))).then(inv -> getAnswer(inv.getArgument(0)));
         AtomicReference<Statistic> statistic = new AtomicReference<>();
@@ -51,16 +51,16 @@ public class ExamServiceTest {
         Assertions.assertThat(actual.getQuestionsCount()).isEqualTo(4);
     }
 
-    @Test(expected = QuestionsEmptyException.class)
-    public void askWithoutQuestionsTest() throws ModuleException {
+    @Test
+    void askWithoutQuestionsTest() throws ModuleException {
         Mockito.when(questionDao.getAll()).then(inv -> Collections.emptyList());
-        examService.askQuestions();
+        Assertions.assertThatThrownBy(() -> examService.askQuestions()).isExactlyInstanceOf(QuestionsEmptyException.class);
     }
 
-    @Test(expected = QuestionsEmptyException.class)
-    public void askNullQuestionsTest() throws ModuleException {
-        Mockito.when(questionDao.getAll()).then(inv -> Collections.emptyList());
-        examService.askQuestions();
+    @Test
+    void askNullQuestionsTest() throws ModuleException {
+        Mockito.when(questionDao.getAll()).then(inv -> null);
+        Assertions.assertThatThrownBy(() -> examService.askQuestions()).isExactlyInstanceOf(QuestionsEmptyException.class);
     }
 
     private List<Question> getTestQuestions() throws ModuleException {

@@ -53,6 +53,6 @@ public class ShellCommands {
     }
 
     private Availability loginAdminSucceedAvailability() {
-        return Objects.equals(user.getName(), "admin") ? Availability.available() : Availability.unavailable("Access denied. Please login as admin");
+        return user != null && Objects.equals(user.getName(), "admin") ? Availability.available() : Availability.unavailable("Access denied. Please login as admin");
     }
 }

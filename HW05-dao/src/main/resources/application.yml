@@ -1,0 +1,9 @@
+spring:
+  shell:
+    interactive:
+      enabled: false
+
+  datasource:
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver

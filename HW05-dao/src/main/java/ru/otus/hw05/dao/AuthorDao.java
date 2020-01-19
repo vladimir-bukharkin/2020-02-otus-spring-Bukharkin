@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AuthorDao {
 
-    void create(Author author);
+    void insert(Author author);
 
     Author getById(long id);
 

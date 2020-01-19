@@ -24,51 +24,51 @@ public class GenreDaoJdbc implements GenreDao{
     @Override
     public void insert(Genre genre) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("name", genre.getName());
-        jdbc.update("INSERT INTO genres (name) values(:name)", params);
+                .addValue("Name", genre.getName());
+        jdbc.update("INSERT INTO Genres (Name) values(:Name)", params);
     }
 
     @Override
     public Genre getById(long id) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", id);
-        return jdbc.queryForObject("SELECT * FROM genres WHERE id=:id", params, new GenreMapper());
+                .addValue("Id", id);
+        return jdbc.queryForObject("SELECT * FROM Genres WHERE Id=:Id", params, new GenreMapper());
     }
 
     @Override
     public Genre getByName(String name) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("name", name);
-        return jdbc.queryForObject("SELECT * FROM genres WHERE name=:name",
+                .addValue("Name", name);
+        return jdbc.queryForObject("SELECT * FROM Genres WHERE Name=:Name",
                 params,
                 new GenreMapper());
     }
 
     @Override
     public List<Genre> getAll() {
-        return jdbc.query("SELECT * FROM genres", new GenreMapper());
+        return jdbc.query("SELECT * FROM Genres", new GenreMapper());
     }
 
     @Override
     public void update(long id, Genre genre) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", id)
-                .addValue("name", genre.getName());
-        jdbc.update("UPDATE genres SET name=:name WHERE id=:id", params);
+                .addValue("Id", id)
+                .addValue("Name", genre.getName());
+        jdbc.update("UPDATE Genres SET Name=:Name WHERE Id=:Id", params);
     }
 
     @Override
     public void remove(long id) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", id);
-        jdbc.update("DELETE FROM genres WHERE id=:id", params);
+                .addValue("Id", id);
+        jdbc.update("DELETE FROM Genres WHERE Id=:Id", params);
     }
 
     private static class GenreMapper implements RowMapper<Genre> {
         @Override
         public Genre mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Genre(rs.getInt("id"),
-                    rs.getString("name"));
+            return new Genre(rs.getInt("Id"),
+                    rs.getString("Name"));
         }
     }
 }

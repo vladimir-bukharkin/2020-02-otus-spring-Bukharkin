@@ -24,55 +24,55 @@ public class AuthorDaoJdbc implements AuthorDao{
     @Override
     public void insert(Author author) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("first_name", author.getFirstName())
-                .addValue("last_name", author.getLastName());
-        jdbc.update("INSERT INTO authors (first_name, last_name) values(:first_name, :last_name)", params);
+                .addValue("FirstName", author.getFirstName())
+                .addValue("LastName", author.getLastName());
+        jdbc.update("INSERT INTO Authors (FirstName, LastName) values(:FirstName, :LastName)", params);
     }
 
     @Override
     public Author getById(long id) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", id);
-        return jdbc.queryForObject("SELECT * FROM authors WHERE id=:id", params, new AuthorMapper());
+                .addValue("Id", id);
+        return jdbc.queryForObject("SELECT * FROM Authors WHERE Id=:Id", params, new AuthorMapper());
     }
 
     @Override
     public Author getByName(String firstName, String lastName) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("first_name", firstName)
-                .addValue("last_name", lastName);
-        return jdbc.queryForObject("SELECT * FROM authors WHERE first_name=:first_name AND last_name=:last_name",
+                .addValue("FirstName", firstName)
+                .addValue("LastName", lastName);
+        return jdbc.queryForObject("SELECT * FROM Authors WHERE FirstName=:FirstName AND LastName=:LastName",
                 params,
                 new AuthorMapper());
     }
 
     @Override
     public List<Author> getAll() {
-        return jdbc.query("SELECT * FROM authors", new AuthorMapper());
+        return jdbc.query("SELECT * FROM Authors", new AuthorMapper());
     }
 
     @Override
     public void update(long id, Author author) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", id)
-                .addValue("first_name", author.getFirstName())
-                .addValue("last_name", author.getLastName());
-        jdbc.update("UPDATE authors SET first_name=:first_name, last_name=:last_name WHERE id=:id", params);
+                .addValue("Id", id)
+                .addValue("FirstName", author.getFirstName())
+                .addValue("LastName", author.getLastName());
+        jdbc.update("UPDATE Authors SET FirstName=:FirstName, LastName=:LastName WHERE Id=:Id", params);
     }
 
     @Override
     public void remove(long id) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("id", id);
-        jdbc.update("DELETE FROM authors WHERE id=:id", params);
+                .addValue("Id", id);
+        jdbc.update("DELETE FROM Authors WHERE Id=:Id", params);
     }
 
     private static class AuthorMapper implements RowMapper<Author> {
         @Override
         public Author mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Author(rs.getInt("id"),
-                    rs.getString("first_name"),
-                    rs.getString("last_name"));
+            return new Author(rs.getInt("Id"),
+                    rs.getString("FirstName"),
+                    rs.getString("LastName"));
         }
     }
 }

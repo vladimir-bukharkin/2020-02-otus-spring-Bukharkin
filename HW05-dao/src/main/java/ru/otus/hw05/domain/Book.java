@@ -5,12 +5,16 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Genre {
+public class Book {
 
     @Setter
     private Long id;
     private final String name;
+    private final Genre genre;
+    private final List<Author> authors;
 }

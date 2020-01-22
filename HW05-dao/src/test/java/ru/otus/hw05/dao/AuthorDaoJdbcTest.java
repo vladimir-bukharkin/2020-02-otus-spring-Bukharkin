@@ -31,13 +31,13 @@ public class AuthorDaoJdbcTest{
         List<Author> expectedAuthors = new ArrayList<>(getDefaultAuthorsInBD());
         Author author1 = new Author("testFirstName1", "testLastName1");
         authorDaoJdbc.insert(author1);
-        author1.setId(4);
+        author1.setId(4L);
         expectedAuthors.add(author1);
         Assertions.assertThat(authorDaoJdbc.getAll()).isEqualTo(expectedAuthors);
 
-        Author author2 = new Author(2, "testFirstName2", "testLastName2");
+        Author author2 = new Author(2L, "testFirstName2", "testLastName2");
         authorDaoJdbc.insert(author2);
-        author2.setId(5);
+        author2.setId(5L);
         expectedAuthors.add(author2);
         Assertions.assertThat(authorDaoJdbc.getAll()).isEqualTo(expectedAuthors);
     }
@@ -87,12 +87,12 @@ public class AuthorDaoJdbcTest{
     public void testUpdate() {
         Author updatedAuthor = new Author("newFirstName", "newLastName");
         authorDaoJdbc.update(2, updatedAuthor);
-        updatedAuthor.setId(2);
+        updatedAuthor.setId(2L);
         Assertions.assertThat(authorDaoJdbc.getById(2)).isEqualTo(updatedAuthor);
 
-        Author updatedAuthor2 = new Author(6, "Lev", "Tolstoy");
+        Author updatedAuthor2 = new Author(6L, "Lev", "Tolstoy");
         authorDaoJdbc.update(1, updatedAuthor2);
-        updatedAuthor2.setId(1);
+        updatedAuthor2.setId(1L);
         Assertions.assertThat(authorDaoJdbc.getById(1)).isEqualTo(updatedAuthor2);
     }
 
@@ -105,9 +105,9 @@ public class AuthorDaoJdbcTest{
     }
 
     private List<Author> getDefaultAuthorsInBD() {
-        return Arrays.asList(new Author(1,"Lev", "Tolstoy"),
-                new Author(2, "Joshua", "Bloch"),
-                new Author(3, "Josh", "Long")
+        return Arrays.asList(new Author(1L,"Lev", "Tolstoy"),
+                new Author(2L, "Joshua", "Bloch"),
+                new Author(3L, "Josh", "Long")
         );
     }
 }

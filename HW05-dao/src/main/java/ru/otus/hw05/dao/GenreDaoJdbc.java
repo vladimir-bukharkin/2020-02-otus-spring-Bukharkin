@@ -67,7 +67,7 @@ public class GenreDaoJdbc implements GenreDao{
     private static class GenreMapper implements RowMapper<Genre> {
         @Override
         public Genre mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Genre(rs.getInt("Id"),
+            return new Genre(rs.getLong("Id"),
                     rs.getString("Name"));
         }
     }

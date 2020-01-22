@@ -70,7 +70,7 @@ public class AuthorDaoJdbc implements AuthorDao{
     private static class AuthorMapper implements RowMapper<Author> {
         @Override
         public Author mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Author(rs.getInt("Id"),
+            return new Author(rs.getLong("Id"),
                     rs.getString("FirstName"),
                     rs.getString("LastName"));
         }

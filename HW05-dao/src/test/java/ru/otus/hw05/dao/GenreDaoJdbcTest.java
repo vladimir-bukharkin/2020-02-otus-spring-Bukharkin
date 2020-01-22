@@ -32,13 +32,13 @@ public class GenreDaoJdbcTest {
         List<Genre> expected = new ArrayList<>(getDefaultGenresInBD());
         Genre genre1 = new Genre("testName1");
         genreDaoJdbc.insert(genre1);
-        genre1.setId(4);
+        genre1.setId(4L);
         expected.add(genre1);
         Assertions.assertThat(genreDaoJdbc.getAll()).isEqualTo(expected);
 
-        Genre genre2 = new Genre(2, "testName2");
+        Genre genre2 = new Genre(2L, "testName2");
         genreDaoJdbc.insert(genre2);
-        genre2.setId(5);
+        genre2.setId(5L);
         expected.add(genre2);
         Assertions.assertThat(genreDaoJdbc.getAll()).isEqualTo(expected);
     }
@@ -88,12 +88,12 @@ public class GenreDaoJdbcTest {
     public void testUpdate() {
         Genre updatedGenre = new Genre("newName");
         genreDaoJdbc.update(2, updatedGenre);
-        updatedGenre.setId(2);
+        updatedGenre.setId(2L);
         Assertions.assertThat(genreDaoJdbc.getById(2)).isEqualTo(updatedGenre);
 
-        Genre updatedGenre2 = new Genre(6, "novel");
+        Genre updatedGenre2 = new Genre(6L, "novel");
         genreDaoJdbc.update(1, updatedGenre2);
-        updatedGenre2.setId(1);
+        updatedGenre2.setId(1L);
         Assertions.assertThat(genreDaoJdbc.getById(1)).isEqualTo(updatedGenre2);
     }
 
@@ -106,9 +106,9 @@ public class GenreDaoJdbcTest {
     }
 
     private List<Genre> getDefaultGenresInBD() {
-        return Arrays.asList(new Genre(1, "novel"),
-                new Genre(2, "story"),
-                new Genre(3, "education")
+        return Arrays.asList(new Genre(1L, "novel"),
+                new Genre(2L, "story"),
+                new Genre(3L, "education")
         );
     }
 }

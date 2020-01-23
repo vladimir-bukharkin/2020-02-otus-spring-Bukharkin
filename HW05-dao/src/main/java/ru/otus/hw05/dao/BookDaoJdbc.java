@@ -11,7 +11,6 @@ import ru.otus.hw05.domain.Author;
 import ru.otus.hw05.domain.Book;
 import ru.otus.hw05.domain.Genre;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -49,11 +48,6 @@ public class BookDaoJdbc implements BookDao{
         });
     }
 
-    private Long d(PreparedStatement statement) {
-        System.out.println("sdf");
-        return 1L;
-    }
-
     @Override
     public Book getById(long id) {
         SqlParameterSource params = new MapSqlParameterSource()
@@ -65,64 +59,66 @@ public class BookDaoJdbc implements BookDao{
 
     @Override
     public Book getByName(String name) {
-        return null;
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("Name", name);
+        return jdbc.queryForObject("SELECT * FROM Books " +
+                "LEFT JOIN Genres ON Genres.Id = Books.GenreId  " +
+                "WHERE Books.Name=:Name", params, new BookMapper());
     }
 
     @Override
-    public List<Book> getByAuthor(Author author) {
-        return null;
+    public List<Book> getByAuthor(long authorId) {
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("AuthorId", authorId);
+        List<Long> bookIds = jdbc.queryForList("SELECT BookId FROM AuthorBookRelations WHERE AuthorId=:AuthorId", params, Long.class);
+        return bookIds.stream().map(this::getById).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Book> getByGenre(long genreId) {
+        SqlParameterSource params = new MapSqlParameterSource()
+            .addValue("GenreId", genreId);
+        return jdbc.query("SELECT * FROM Books WHERE GenreId=:GenreId", params, new BookMapper());
     }
 
     @Override
     public List<Book> getAll() {
-        return null;
+        return jdbc.query("SELECT * FROM Books LEFT JOIN Genres ON Genres.Id = Books.GenreId" , new BookMapper());
     }
 
     @Override
-    public void update(long id, Book author) {
+    public void update(long id, Book book) {
+        SqlParameterSource params = new MapSqlParameterSource()
+                .addValue("Id", id)
+                .addValue("Name", book.getName())
+                .addValue("GenreId", book.getGenre().getId());
+        jdbc.update("UPDATE Books SET Name=:Name, GenreId=:GenreId WHERE Id=:Id", params);
 
+        params = new MapSqlParameterSource()
+                .addValue("BookId", id);
+        Set<Long> bdAuthorIds = new HashSet<>(jdbc.queryForList("SELECT AuthorId FROM AuthorBookRelations WHERE BookId=:BookId", params, Long.class));
+        Set<Long> authorIds = book.getAuthors().stream().map(Author::getId).collect(Collectors.toSet());
+        authorIds.forEach(authorId -> {
+            if(!bdAuthorIds.contains(authorId)) {
+                jdbc.update("UPDATE AuthorBookRelations SET BookId=:BookId, AuthorId=:AuthorId", new MapSqlParameterSource()
+                        .addValue("BookId", id)
+                        .addValue("AuthorId", authorId));
+            }
+        });
+        bdAuthorIds.forEach(bdAuthorId -> {
+            if (!authorIds.contains(bdAuthorId)) {
+                jdbc.update("DELETE FROM AuthorBookRelations WHERE BookId=:BookId AND AuthorId=:AuthorId", new MapSqlParameterSource()
+                        .addValue("BookId", id)
+                        .addValue("AuthorId", bdAuthorId));
+            }
+        });
     }
 
     @Override
     public void remove(long id) {
-
+        jdbc.update("DELETE FROM AuthorBookRelations WHERE Id=:Id", new MapSqlParameterSource()
+                .addValue("Id", id));
     }
-//
-//    @Override
-//    public List<Book> getByAuthor(Author author) {
-//        return null;
-//    }
-//
-//    @Override
-//    public Book getByName(String name) {
-//        SqlParameterSource params = new MapSqlParameterSource()
-//                .addValue("FirstName", firstName)
-//                .addValue("LastName", lastName);
-//        return jdbc.queryForObject("SELECT * FROM Authors WHERE FirstName=:FirstName AND LastName=:LastName",
-//                params,
-//                new AuthorMapper());
-//    }
-//
-//    @Override
-//    public List<Book> getAll() {
-//        return jdbc.query("SELECT * FROM Authors", new AuthorMapper());
-//    }
-//
-//    @Override
-//    public void update(long id, Book book) {
-//        SqlParameterSource params = new MapSqlParameterSource()
-//                .addValue("Id", id)
-//                .addValue("FirstName", author.getFirstName())
-//                .addValue("LastName", author.getLastName());
-//        jdbc.update("UPDATE Authors SET FirstName=:FirstName, LastName=:LastName WHERE Id=:Id", params);
-//    }
-//
-//    @Override
-//    public void remove(long id) {
-//        SqlParameterSource params = new MapSqlParameterSource()
-//                .addValue("Id", id);
-//        jdbc.update("DELETE FROM Authors WHERE Id=:Id", params);
-//    }
 
     private class BookMapper implements RowMapper<Book> {
 

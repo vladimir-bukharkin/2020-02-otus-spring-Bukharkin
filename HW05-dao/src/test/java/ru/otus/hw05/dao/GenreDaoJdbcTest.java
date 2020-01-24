@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -32,13 +33,13 @@ public class GenreDaoJdbcTest {
         List<Genre> expected = new ArrayList<>(getDefaultGenresInBD());
         Genre genre1 = new Genre("testName1");
         genreDaoJdbc.insert(genre1);
-        genre1.setId(4L);
+        genre1.setId(5L);
         expected.add(genre1);
         Assertions.assertThat(genreDaoJdbc.getAll()).isEqualTo(expected);
 
         Genre genre2 = new Genre(2L, "testName2");
         genreDaoJdbc.insert(genre2);
-        genre2.setId(5L);
+        genre2.setId(6L);
         expected.add(genre2);
         Assertions.assertThat(genreDaoJdbc.getAll()).isEqualTo(expected);
     }
@@ -59,11 +60,21 @@ public class GenreDaoJdbcTest {
     }
 
     @Test
+    public void testGetByIdForNotExistingGenre() {
+        Assertions.assertThat(genreDaoJdbc.getById(899)).isNull();
+    }
+
+    @Test
     public void testGetByName() {
         getDefaultGenresInBD().forEach(expected -> {
             Assertions.assertThat(genreDaoJdbc.getByName(expected.getName()))
                     .isEqualTo(expected);
         });
+    }
+
+    @Test
+    public void testGetByNameForNotExistingGenre() {
+        Assertions.assertThat(genreDaoJdbc.getByName("some")).isNull();
     }
 
     @Test
@@ -75,13 +86,19 @@ public class GenreDaoJdbcTest {
     @Test
     public void testRemove() {
         List<Genre> expected = new ArrayList<>(getDefaultGenresInBD());
-        genreDaoJdbc.remove(2);
-        expected.remove(1);
+        genreDaoJdbc.remove(4);
+        expected.remove(3);
         Assertions.assertThat(genreDaoJdbc.getAll()).isEqualTo(expected);
+    }
 
-        genreDaoJdbc.remove(3);
-        expected.remove(1);
-        Assertions.assertThat(genreDaoJdbc.getAll()).isEqualTo(expected);
+    @Test
+    public void testRemoveNotExistingGenre() {
+        genreDaoJdbc.remove(222);
+    }
+
+    @Test
+    public void testFailRemoveGenreBecauseForeignDependency() {
+        Assertions.assertThatThrownBy(() -> genreDaoJdbc.remove(2)).isExactlyInstanceOf(DataIntegrityViolationException.class);
     }
 
     @Test
@@ -97,7 +114,6 @@ public class GenreDaoJdbcTest {
         Assertions.assertThat(genreDaoJdbc.getById(1)).isEqualTo(updatedGenre2);
     }
 
-
     @Test
     public void testUpdateFailBecauseAlreadyExists() {
         genreDaoJdbc.insert(new Genre("testName"));
@@ -108,7 +124,8 @@ public class GenreDaoJdbcTest {
     private List<Genre> getDefaultGenresInBD() {
         return Arrays.asList(new Genre(1L, "novel"),
                 new Genre(2L, "story"),
-                new Genre(3L, "education")
+                new Genre(3L, "education"),
+                new Genre(4L, "other")
         );
     }
 }

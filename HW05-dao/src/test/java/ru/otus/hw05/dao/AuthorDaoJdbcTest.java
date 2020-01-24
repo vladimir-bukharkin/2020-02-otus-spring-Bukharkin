@@ -58,11 +58,21 @@ public class AuthorDaoJdbcTest{
     }
 
     @Test
+    public void testGetByIdForNotExistingAuthor() {
+        Assertions.assertThat(authorDaoJdbc.getById(899)).isNull();
+    }
+
+    @Test
     public void testGetByName() {
         getDefaultAuthorsInBD().forEach(expected -> {
             Assertions.assertThat(authorDaoJdbc.getByName(expected.getFirstName(), expected.getLastName()))
                     .isEqualTo(expected);
         });
+    }
+
+    @Test
+    public void testGetByNameForNotExistingAuthor() {
+        Assertions.assertThat(authorDaoJdbc.getByName("some", "name")).isNull();
     }
 
     @Test
@@ -84,6 +94,11 @@ public class AuthorDaoJdbcTest{
     }
 
     @Test
+    public void testRemoveNotExistingAuthor() {
+        authorDaoJdbc.remove(222);
+    }
+
+    @Test
     public void testUpdate() {
         Author updatedAuthor = new Author("newFirstName", "newLastName");
         authorDaoJdbc.update(2, updatedAuthor);
@@ -95,7 +110,6 @@ public class AuthorDaoJdbcTest{
         updatedAuthor2.setId(1L);
         Assertions.assertThat(authorDaoJdbc.getById(1)).isEqualTo(updatedAuthor2);
     }
-
 
     @Test
     public void testUpdateFailBecauseAlreadyExists() {

@@ -1,6 +1,5 @@
 package ru.otus.hw05.dao;
 
-import ru.otus.hw05.domain.Author;
 import ru.otus.hw05.domain.Book;
 
 import java.util.List;

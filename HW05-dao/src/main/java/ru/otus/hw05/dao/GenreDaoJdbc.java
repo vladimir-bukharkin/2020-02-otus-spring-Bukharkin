@@ -1,5 +1,6 @@
 package ru.otus.hw05.dao;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -30,18 +31,26 @@ public class GenreDaoJdbc implements GenreDao{
 
     @Override
     public Genre getById(long id) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("Id", id);
-        return jdbc.queryForObject("SELECT * FROM Genres WHERE Id=:Id", params, new GenreMapper());
+        try {
+            SqlParameterSource params = new MapSqlParameterSource()
+                    .addValue("Id", id);
+            return jdbc.queryForObject("SELECT * FROM Genres WHERE Id=:Id", params, new GenreMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
     public Genre getByName(String name) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("Name", name);
-        return jdbc.queryForObject("SELECT * FROM Genres WHERE Name=:Name",
-                params,
-                new GenreMapper());
+        try {
+            SqlParameterSource params = new MapSqlParameterSource()
+                    .addValue("Name", name);
+            return jdbc.queryForObject("SELECT * FROM Genres WHERE Name=:Name",
+                    params,
+                    new GenreMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -59,9 +68,8 @@ public class GenreDaoJdbc implements GenreDao{
 
     @Override
     public void remove(long id) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("Id", id);
-        jdbc.update("DELETE FROM Genres WHERE Id=:Id", params);
+        jdbc.update("DELETE FROM Genres WHERE Id=:Id", new MapSqlParameterSource()
+                .addValue("Id", id));
     }
 
     private static class GenreMapper implements RowMapper<Genre> {

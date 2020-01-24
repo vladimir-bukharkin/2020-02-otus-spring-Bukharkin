@@ -1,5 +1,6 @@
 package ru.otus.hw05.dao;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -50,20 +51,28 @@ public class BookDaoJdbc implements BookDao{
 
     @Override
     public Book getById(long id) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("Id", id);
-        return jdbc.queryForObject("SELECT * FROM Books " +
-                "LEFT JOIN Genres ON Genres.Id = Books.GenreId  " +
-                "WHERE Books.Id=:Id", params, new BookMapper());
+        try {
+            SqlParameterSource params = new MapSqlParameterSource()
+                    .addValue("Id", id);
+            return jdbc.queryForObject("SELECT * FROM Books " +
+                    "LEFT JOIN Genres ON Genres.Id = Books.GenreId  " +
+                    "WHERE Books.Id=:Id", params, new BookMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
     public Book getByName(String name) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("Name", name);
-        return jdbc.queryForObject("SELECT * FROM Books " +
-                "LEFT JOIN Genres ON Genres.Id = Books.GenreId  " +
-                "WHERE Books.Name=:Name", params, new BookMapper());
+        try {
+            SqlParameterSource params = new MapSqlParameterSource()
+                    .addValue("Name", name);
+            return jdbc.queryForObject("SELECT * FROM Books " +
+                    "LEFT JOIN Genres ON Genres.Id = Books.GenreId  " +
+                    "WHERE Books.Name=:Name", params, new BookMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -78,7 +87,7 @@ public class BookDaoJdbc implements BookDao{
     public List<Book> getByGenre(long genreId) {
         SqlParameterSource params = new MapSqlParameterSource()
             .addValue("GenreId", genreId);
-        return jdbc.query("SELECT * FROM Books WHERE GenreId=:GenreId", params, new BookMapper());
+        return jdbc.query("SELECT * FROM Books LEFT JOIN Genres ON Genres.Id = Books.GenreId WHERE GenreId=:GenreId", params, new BookMapper());
     }
 
     @Override
@@ -100,7 +109,7 @@ public class BookDaoJdbc implements BookDao{
         Set<Long> authorIds = book.getAuthors().stream().map(Author::getId).collect(Collectors.toSet());
         authorIds.forEach(authorId -> {
             if(!bdAuthorIds.contains(authorId)) {
-                jdbc.update("UPDATE AuthorBookRelations SET BookId=:BookId, AuthorId=:AuthorId", new MapSqlParameterSource()
+                jdbc.update("INSERT INTO AuthorBookRelations (BookId, AuthorId) VALUES (:BookId, :AuthorId)", new MapSqlParameterSource()
                         .addValue("BookId", id)
                         .addValue("AuthorId", authorId));
             }
@@ -116,7 +125,9 @@ public class BookDaoJdbc implements BookDao{
 
     @Override
     public void remove(long id) {
-        jdbc.update("DELETE FROM AuthorBookRelations WHERE Id=:Id", new MapSqlParameterSource()
+        jdbc.update("DELETE FROM AuthorBookRelations WHERE BookId=:BookId", new MapSqlParameterSource()
+                .addValue("BookId", id));
+        jdbc.update("DELETE FROM Books WHERE Id=:Id", new MapSqlParameterSource()
                 .addValue("Id", id));
     }
 

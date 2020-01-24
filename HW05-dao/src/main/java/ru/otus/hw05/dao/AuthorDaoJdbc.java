@@ -1,5 +1,6 @@
 package ru.otus.hw05.dao;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -31,19 +32,27 @@ public class AuthorDaoJdbc implements AuthorDao{
 
     @Override
     public Author getById(long id) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("Id", id);
-        return jdbc.queryForObject("SELECT * FROM Authors WHERE Id=:Id", params, new AuthorMapper());
+        try {
+            SqlParameterSource params = new MapSqlParameterSource()
+                    .addValue("Id", id);
+            return jdbc.queryForObject("SELECT * FROM Authors WHERE Id=:Id", params, new AuthorMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
     public Author getByName(String firstName, String lastName) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("FirstName", firstName)
-                .addValue("LastName", lastName);
-        return jdbc.queryForObject("SELECT * FROM Authors WHERE FirstName=:FirstName AND LastName=:LastName",
-                params,
-                new AuthorMapper());
+        try {
+            SqlParameterSource params = new MapSqlParameterSource()
+                    .addValue("FirstName", firstName)
+                    .addValue("LastName", lastName);
+            return jdbc.queryForObject("SELECT * FROM Authors WHERE FirstName=:FirstName AND LastName=:LastName",
+                    params,
+                    new AuthorMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
@@ -62,9 +71,10 @@ public class AuthorDaoJdbc implements AuthorDao{
 
     @Override
     public void remove(long id) {
-        SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("Id", id);
-        jdbc.update("DELETE FROM Authors WHERE Id=:Id", params);
+        jdbc.update("DELETE FROM AuthorBookRelations WHERE AuthorId=:AuthorId", new MapSqlParameterSource()
+                .addValue("AuthorId", id));
+        jdbc.update("DELETE FROM Authors WHERE Id=:Id", new MapSqlParameterSource()
+                .addValue("Id", id));
     }
 
     private static class AuthorMapper implements RowMapper<Author> {

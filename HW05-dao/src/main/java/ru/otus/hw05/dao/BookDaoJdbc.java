@@ -34,13 +34,18 @@ public class BookDaoJdbc implements BookDao{
     @Override
     public void insert(Book book) {
         long genreId = book.getGenre().getId() != null ? book.getGenre().getId() : genreDao.getByName(book.getGenre().getName()).getId();
+        List<Long> authorIds = getAuthorIds(book);
+        insert(book.getName(), genreId, authorIds);
+    }
+
+    @Override
+    public void insert(String bookName, long genreId, Collection<Long> authorIds) {
         SqlParameterSource params = new MapSqlParameterSource()
-                .addValue("Name", book.getName())
+                .addValue("Name",bookName)
                 .addValue("GenreId", genreId);
         KeyHolder bookIdKH = new GeneratedKeyHolder();
         jdbc.update("INSERT INTO Books (Name, GenreId) VALUES (:Name, :GenreId)", params, bookIdKH, new String[]{"Id"});
 
-        List<Long> authorIds = getAuthorIds(book);
         authorIds.forEach(authorId -> {
             SqlParameterSource p = new MapSqlParameterSource()
                     .addValue("BookId", bookIdKH.getKey())
@@ -97,16 +102,22 @@ public class BookDaoJdbc implements BookDao{
 
     @Override
     public void update(long id, Book book) {
+        Set<Long> authorIds = book.getAuthors().stream().map(Author::getId).collect(Collectors.toSet());
+        update(id, book.getName(), book.getGenre().getId(), authorIds);
+    }
+
+    @Override
+    public void update(long id, String bookName, long genreId, Collection<Long> authorIds) {
         SqlParameterSource params = new MapSqlParameterSource()
                 .addValue("Id", id)
-                .addValue("Name", book.getName())
-                .addValue("GenreId", book.getGenre().getId());
+                .addValue("Name", bookName)
+                .addValue("GenreId", genreId);
         jdbc.update("UPDATE Books SET Name=:Name, GenreId=:GenreId WHERE Id=:Id", params);
 
         params = new MapSqlParameterSource()
                 .addValue("BookId", id);
         Set<Long> bdAuthorIds = new HashSet<>(jdbc.queryForList("SELECT AuthorId FROM AuthorBookRelations WHERE BookId=:BookId", params, Long.class));
-        Set<Long> authorIds = book.getAuthors().stream().map(Author::getId).collect(Collectors.toSet());
+        Set<Long> authorIdsSet = new HashSet<>(authorIds);
         authorIds.forEach(authorId -> {
             if(!bdAuthorIds.contains(authorId)) {
                 jdbc.update("INSERT INTO AuthorBookRelations (BookId, AuthorId) VALUES (:BookId, :AuthorId)", new MapSqlParameterSource()
@@ -115,7 +126,7 @@ public class BookDaoJdbc implements BookDao{
             }
         });
         bdAuthorIds.forEach(bdAuthorId -> {
-            if (!authorIds.contains(bdAuthorId)) {
+            if (!authorIdsSet.contains(bdAuthorId)) {
                 jdbc.update("DELETE FROM AuthorBookRelations WHERE BookId=:BookId AND AuthorId=:AuthorId", new MapSqlParameterSource()
                         .addValue("BookId", id)
                         .addValue("AuthorId", bdAuthorId));

@@ -1,7 +1,7 @@
 spring:
   shell:
     interactive:
-      enabled: false
+      enabled: true
 
   datasource:
     username: sa

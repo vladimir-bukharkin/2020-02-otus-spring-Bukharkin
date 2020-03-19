@@ -1,20 +1,19 @@
 package ru.otus.hw03.service.i18n;
 
 import org.springframework.context.MessageSource;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Service;
 import ru.otus.hw03.config.ApplicationConfig;
 
 import java.util.Locale;
 
 @Service
-public class DefaultLocalization implements Localization {
+public class DefaultLocalizationService implements LocalizationService {
 
     private final MessageSource messageSource;
     private final String questionsPath;
     private final Locale locale;
 
-    public DefaultLocalization(ApplicationConfig config, MessageSource messageSource) {
+    public DefaultLocalizationService(ApplicationConfig config, MessageSource messageSource) {
         this.messageSource = messageSource;
         this.questionsPath = String.format(config.getQuestions().getPath(), config.getLocale().getLanguage());
         this.locale = Locale.forLanguageTag(config.getLocale().getLanguage());

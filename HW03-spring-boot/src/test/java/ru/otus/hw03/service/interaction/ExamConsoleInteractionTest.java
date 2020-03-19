@@ -11,11 +11,11 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import ru.otus.hw03.LocalizationTestBean;
+import ru.otus.hw03.LocalizationServiceTestBean;
 import ru.otus.hw03.exception.ModuleException;
 import ru.otus.hw03.question.Question;
 import ru.otus.hw03.question.QuestionType;
-import ru.otus.hw03.service.i18n.Localization;
+import ru.otus.hw03.service.i18n.LocalizationService;
 import ru.otus.hw03.service.io.IOStringService;
 
 @SpringBootTest
@@ -31,8 +31,8 @@ class ExamConsoleInteractionTest {
 	@TestConfiguration
 	static class TestConfig {
 		@Bean
-		public Localization localization() {
-			return new LocalizationTestBean("questions/questions_ru.csv");
+		public LocalizationService localization() {
+			return new LocalizationServiceTestBean("questions/questions_ru.csv");
 		}
 	}
 

@@ -8,7 +8,7 @@ import ru.otus.hw03.exception.IOModuleException;
 import ru.otus.hw03.exception.ModuleException;
 import ru.otus.hw03.exception.QuestionParsingException;
 import ru.otus.hw03.question.Question;
-import ru.otus.hw03.service.i18n.Localization;
+import ru.otus.hw03.service.i18n.LocalizationService;
 import ru.otus.hw03.service.validator.QuestionValidator;
 
 import java.io.IOException;
@@ -27,9 +27,9 @@ public class QuestionCsvDao implements QuestionDao {
     private final Path csvPath;
     private final QuestionValidator questionValidator;
 
-    public QuestionCsvDao(QuestionValidator questionValidator, Localization localization) {
+    public QuestionCsvDao(QuestionValidator questionValidator, LocalizationService localizationService) {
         try {
-            this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(localization.getQuestionsPath())).toURI());
+            this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(localizationService.getQuestionsPath())).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

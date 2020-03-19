@@ -1,12 +1,12 @@
 package ru.otus.hw03;
 
-import ru.otus.hw03.service.i18n.Localization;
+import ru.otus.hw03.service.i18n.LocalizationService;
 
-public class LocalizationTestBean implements Localization {
+public class LocalizationServiceTestBean implements LocalizationService {
 
     private final String questionPath;
 
-    public LocalizationTestBean(String questionPath) {
+    public LocalizationServiceTestBean(String questionPath) {
         this.questionPath = questionPath;
     }
 

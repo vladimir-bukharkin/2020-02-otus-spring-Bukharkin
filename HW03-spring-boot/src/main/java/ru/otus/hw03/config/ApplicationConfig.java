@@ -1,6 +1,9 @@
 package ru.otus.hw03.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.stereotype.Component;
 
 
@@ -67,5 +70,13 @@ public class ApplicationConfig {
         public void setPath(String path) {
             this.path = path;
         }
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
+        source.setBasenames(locale.getBasenames());
+        source.setDefaultEncoding(locale.getEncodingDefault());
+        return source;
     }
 }

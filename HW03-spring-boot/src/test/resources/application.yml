@@ -4,4 +4,4 @@ application:
     basenames: /i18n/bundle
     encoding-default: UTF-8
   questions:
-    path: questions/questions_%s.csv
+    path: questions/questions_ru.csv

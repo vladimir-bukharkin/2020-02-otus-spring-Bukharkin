@@ -4,11 +4,11 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.stereotype.Repository;
+import ru.otus.hw03.config.ApplicationConfig;
 import ru.otus.hw03.exception.IOModuleException;
 import ru.otus.hw03.exception.ModuleException;
 import ru.otus.hw03.exception.QuestionParsingException;
 import ru.otus.hw03.question.Question;
-import ru.otus.hw03.service.i18n.LocalizationService;
 import ru.otus.hw03.service.validator.QuestionValidator;
 
 import java.io.IOException;
@@ -27,9 +27,9 @@ public class QuestionCsvDao implements QuestionDao {
     private final Path csvPath;
     private final QuestionValidator questionValidator;
 
-    public QuestionCsvDao(QuestionValidator questionValidator, LocalizationService localizationService) {
+    public QuestionCsvDao(QuestionValidator questionValidator, ApplicationConfig config) {
         try {
-            this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(localizationService.getQuestionsPath())).toURI());
+            this.csvPath = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(config.getQuestions().getPath())).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

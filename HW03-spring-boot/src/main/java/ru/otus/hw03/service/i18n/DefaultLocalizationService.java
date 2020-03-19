@@ -10,12 +10,10 @@ import java.util.Locale;
 public class DefaultLocalizationService implements LocalizationService {
 
     private final MessageSource messageSource;
-    private final String questionsPath;
     private final Locale locale;
 
     public DefaultLocalizationService(ApplicationConfig config, MessageSource messageSource) {
         this.messageSource = messageSource;
-        this.questionsPath = String.format(config.getQuestions().getPath(), config.getLocale().getLanguage());
         this.locale = Locale.forLanguageTag(config.getLocale().getLanguage());
     }
 
@@ -27,10 +25,5 @@ public class DefaultLocalizationService implements LocalizationService {
     @Override
     public String getMessage(String value, Object... objs) {
         return messageSource.getMessage(value, objs, locale);
-    }
-
-    @Override
-    public String getQuestionsPath() {
-        return questionsPath;
     }
 }

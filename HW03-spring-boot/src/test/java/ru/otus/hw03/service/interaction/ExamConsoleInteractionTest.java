@@ -19,7 +19,7 @@ import ru.otus.hw03.service.io.IOStringService;
 class ExamConsoleInteractionTest {
 
 	@MockBean
-	IOStringService ioStringService;
+	private IOStringService ioStringService;
 
 	@Autowired
 	private ExamInteractionService examInteractionService;

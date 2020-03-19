@@ -1,0 +1,7 @@
+application:
+  locale:
+    language: ru
+    basenames: /i18n/bundle
+    encoding-default: UTF-8
+  questions:
+    path: questions/questions_ru.csv

@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 class ExamServiceTest {
 
     @MockBean

@@ -12,7 +12,6 @@ import ru.otus.hw03.question.Question;
 import ru.otus.hw03.question.QuestionType;
 
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 class QuestionCsvDaoTest {
 
 	@Autowired

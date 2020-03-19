@@ -15,7 +15,6 @@ import ru.otus.hw03.question.QuestionType;
 import ru.otus.hw03.service.io.IOStringService;
 
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
 class ExamConsoleInteractionTest {
 
 	@MockBean

@@ -5,3 +5,9 @@ application:
     encoding-default: UTF-8
   questions:
     path: questions/questions_%s.csv
+
+
+spring:
+  shell:
+    interactive:
+      enabled: false

@@ -5,7 +5,7 @@ import ru.otus.hw07.domain.Book;
 
 import java.util.List;
 
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<Book, Integer> {
 
 //    void insert(String bookName, long genreId, Collection<Long> authorIds);
     Book getByName(String name);

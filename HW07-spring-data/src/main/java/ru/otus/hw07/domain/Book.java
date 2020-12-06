@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="books")
+@Table
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -14,14 +14,15 @@ import java.util.List;
 public class Book {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private Integer id;
     @NonNull
     private String name;
     @NonNull
     @OneToOne
     private Genre genre;
     @NonNull
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
     private List<Author> author;
 }

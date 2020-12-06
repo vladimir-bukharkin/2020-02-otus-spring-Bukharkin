@@ -1,27 +1,27 @@
-DROP TABLE IF EXISTS Authors;
-DROP TABLE IF EXISTS Genres;
-DROP TABLE IF EXISTS Books;
-DROP TABLE IF EXISTS AuthorBookRelations;
-CREATE TABLE Authors(
-    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    FirstName VARCHAR(255) NOT NULL,
-    LastName VARCHAR(255),
-    UNIQUE (FirstName, LastName)
+DROP TABLE IF EXISTS book_author;
+DROP TABLE IF EXISTS book;
+DROP TABLE IF EXISTS author;
+DROP TABLE IF EXISTS genre;
+CREATE TABLE author(
+    Id SERIAL PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255),
+    UNIQUE (first_name, last_name)
 );
-CREATE TABLE Genres(
-    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE genre(
+    Id SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL UNIQUE
 );
-CREATE TABLE Books(
-    Id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE book(
+    Id SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
-    GenreId INT NOT NULL,
-    FOREIGN KEY (GenreId) REFERENCES Genres(Id)
+    genre_id INT NOT NULL,
+    FOREIGN KEY (genre_id) REFERENCES genre(Id)
 );
-CREATE TABLE AuthorBookRelations(
-    AuthorId INT NOT NULL,
-    BookId INT NOT NULL,
-    FOREIGN KEY (AuthorId) REFERENCES Authors(Id),
-    FOREIGN KEY (BookId) REFERENCES Books(Id),
-    UNIQUE (AuthorId, BookId)
+CREATE TABLE book_author(
+    author_id INT NOT NULL,
+    book_id INT NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES author(Id),
+    FOREIGN KEY (book_id) REFERENCES book(Id),
+    UNIQUE (author_id, book_id)
 );

@@ -2,8 +2,20 @@ spring:
   shell:
     interactive:
       enabled: true
-
   datasource:
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: me
+    password: 123456
+    platform: POSTGRESQL
+    driver-class-name: org.postgresql.Driver
+    initialization-mode: always
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+logging:
+  level:
+    org.hibernate:
+      SQL: DEBUG
+      type: TRACE

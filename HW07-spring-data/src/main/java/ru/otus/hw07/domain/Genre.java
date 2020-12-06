@@ -2,13 +2,10 @@ package ru.otus.hw07.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name="genres")
+@Table
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
@@ -16,8 +13,9 @@ import javax.persistence.Table;
 public class Genre {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private Integer id;
     @NonNull
     private String name;
 }

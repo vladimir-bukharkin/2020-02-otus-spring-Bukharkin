@@ -3,7 +3,7 @@ package ru.otus.hw07.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.otus.hw07.domain.Author;
 
-public interface AuthorRepository extends JpaRepository<Author, Long> {
+public interface AuthorRepository extends JpaRepository<Author, Integer> {
 
     Author getByFirstNameAndLastName(String firstName, String lastName);
 }

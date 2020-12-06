@@ -10,7 +10,6 @@ import ru.otus.hw07.domain.Author;
 import ru.otus.hw07.domain.Book;
 import ru.otus.hw07.domain.Genre;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 
@@ -75,33 +74,33 @@ public class ShellCommands {
     }
 
     @ShellMethod(value = "Remove book", key = {"remove_b", "remove_book"})
-    public void removeBook(@ShellOption long id) {
+    public void removeBook(@ShellOption int id) {
         bookRepository.deleteById(id);
     }
 
     @ShellMethod(value = "Remove author", key = {"remove_a", "remove_author"})
-    public void removeAuthor(@ShellOption long id) {
+    public void removeAuthor(@ShellOption int id) {
         authorRepository.deleteById(id);
     }
 
     @ShellMethod(value = "Remove genre", key = {"remove_g", "remove_genre"})
-    public void removeGenre(@ShellOption long id) {
+    public void removeGenre(@ShellOption int id) {
         genreRepository.deleteById(id);
     }
 
     @ShellMethod(value = "Update book", key = {"update_b", "update_book"})
-    public void updateBook(@ShellOption long id, @ShellOption String name, @ShellOption long genreId, @ShellOption(arity = 2) Long[] authorIds) {
+    public void updateBook(@ShellOption int id, @ShellOption String name, @ShellOption long genreId, @ShellOption(arity = 2) Long[] authorIds) {
         Book book = new Book(id, name, null, null);
         bookRepository.save(book);
     }
 
     @ShellMethod(value = "Update author", key = {"update_a", "update_author"})
-    public void updateAuthor(@ShellOption long id, @ShellOption String firstName, @ShellOption String lastName) {
+    public void updateAuthor(@ShellOption int id, @ShellOption String firstName, @ShellOption String lastName) {
         authorRepository.save(new Author(id, firstName, lastName));
     }
 
     @ShellMethod(value = "Update genre", key = {"update_g", "update_genre"})
-    public void updateGenre(@ShellOption long id, @ShellOption String name) {
+    public void updateGenre(@ShellOption int id, @ShellOption String name) {
         genreRepository.save(new Genre(id, name));
     }
 }

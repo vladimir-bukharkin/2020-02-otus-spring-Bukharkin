@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      database: library
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb: DEBUG

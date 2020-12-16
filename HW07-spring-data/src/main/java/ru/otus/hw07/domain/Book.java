@@ -1,6 +1,8 @@
 package ru.otus.hw07.domain;
 
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,6 +13,13 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @NoArgsConstructor
+@NamedEntityGraph(name = "Book",
+        attributeNodes =
+                {
+                    @NamedAttributeNode("genre"),
+                    @NamedAttributeNode("author")
+                }
+)
 public class Book {
 
     @Id
@@ -20,9 +29,10 @@ public class Book {
     @NonNull
     private String name;
     @NonNull
-    @OneToOne
+    @ManyToOne
     private Genre genre;
     @NonNull
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
+    @Fetch(FetchMode.SELECT)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE})
     private List<Author> author;
 }

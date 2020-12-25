@@ -152,7 +152,7 @@
     background-size: 30px;
 }
 
-table.GeneratedTable {
+table.booksTable {
     width: 100%;
     max-width: 1000px;
     background-color: #ffffff;
@@ -165,14 +165,23 @@ table.GeneratedTable {
     border-radius: 10px;
 }
 
-table.GeneratedTable td, table.GeneratedTable th {
+table.booksTable td, table.booksTable th {
     border-width: 1px;
     border-color: #eeeeee;
     border-style: solid;
     padding: 5px;
 }
 
-table.GeneratedTable thead {
+table.booksTable thead {
     background-color: #63c76a;
     color: #ffffff;
+}
+
+.booksTable .id {
+    width: 200px;
+}
+
+.booksTable .authors_text {
+    padding-bottom: 2px;
+    padding-top: 2px;
 }

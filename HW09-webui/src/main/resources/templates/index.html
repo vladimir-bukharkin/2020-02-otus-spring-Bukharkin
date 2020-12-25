@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link href="css/main.css" rel="stylesheet" type="text/css">
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
     <title>Библиотека. Список книг</title>
 </head>
 <body>
@@ -24,24 +24,23 @@
     </div>
 
     <div class="main">
-        <table class="GeneratedTable">
+        <table class="booksTable">
             <thead>
             <tr>
-                <th>Название книги</th>
-                <th>Жанр</th>
-                <th>Автор</th>
+                <th class="id">ID</th>
+                <th class="name">Название книги</th>
+                <th class="genre">Жанр</th>
+                <th class="author">Автор</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
-            </tr>
-            <tr>
-                <td>Cell</td>
-                <td>Cell</td>
-                <td>Cell</td>
+            <tr th:each="book: ${books}">
+                <td th:text="${book.id}">5fd7e23d6d1a97658d672090</td>
+                <td th:text="${book.name}">Cell</td>
+                <td th:text="${book.getGenre().name}">Cell</td>
+                <td>
+                    <div class="authors_text" th:each="author: ${book.getAuthors()}" th:text="${author.firstName} + ' ' + ${author.lastName}">Cell</div>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -1,0 +1,178 @@
+* {
+    box-sizing: border-box;
+}
+
+.header {
+    min-height: 20vh;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fcf5e3;
+    background-size: cover;
+    background-position: center center;
+    padding: 15px;
+}
+
+.main {
+    min-height: 80vh;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fcf5e3;
+    background-size: cover;
+    background-position: center center;
+    padding: 15px;
+}
+
+.header form {
+    width: 100%;
+    max-width: 790px;
+    margin-bottom: 0;
+}
+
+.header form .inner-form {
+    background: #fff;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center;
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+}
+
+.header form .inner-form .input-field {
+    height: 68px;
+}
+
+.header form .inner-form .input-field input {
+    height: 100%;
+    background: transparent;
+    border: 0;
+    display: block;
+    width: 100%;
+    padding: 10px 32px;
+    font-size: 16px;
+    color: #555;
+}
+
+.header form .inner-form .input-field input.placeholder {
+    color: #888;
+    font-size: 16px;
+}
+
+.header form .inner-form .input-field input:-moz-placeholder {
+    color: #888;
+    font-size: 16px;
+}
+
+.header form .inner-form .input-field input::-webkit-input-placeholder {
+    color: #888;
+    font-size: 16px;
+}
+
+.header form .inner-form .input-field input:hover, .header form .inner-form .input-field input:focus {
+    box-shadow: none;
+    outline: 0;
+    border-color: #fff;
+}
+
+.header form .inner-form .input-field.first-wrap {
+    width: 200px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.header form .inner-form .input-field.second-wrap {
+    flex-grow: 1;
+}
+
+.header form .inner-form .input-field.third-wrap {
+    width: 74px;
+}
+
+.header form .inner-form .input-field.third-wrap .btn-search {
+    height: 100%;
+    width: 100%;
+    white-space: nowrap;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    background: #63c76a;
+    transition: all .2s ease-out, color .2s ease-out;
+}
+
+.header form .inner-form .input-field.third-wrap .btn-search svg {
+    width: 16px;
+}
+
+.header form .inner-form .input-field.third-wrap .btn-search:hover {
+    background: #50c058;
+}
+
+.header form .inner-form .input-field.third-wrap .btn-search:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.search {
+    float: left;
+    height: 60px;
+    width: 45%;
+    margin: 20px 0 0 0;
+    background-color: white;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: inset 0 0 5px rgba(0,0,0,.3);
+}
+
+.inputSearch  {
+    border: none;
+    border-radius: 10px;
+    height: 50px;
+    width: 90%;
+    text-indent: 15px;
+    margin: 5px 0 5px 5px;
+}
+
+.submitSearchBottom {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 60px;
+    width: 60px;
+    float: right;
+    border-radius: 10px;
+    background-size: 30px;
+}
+
+table.GeneratedTable {
+    width: 100%;
+    max-width: 1000px;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    border-width: 1px;
+    border-color: #918d8d;
+    border-style: solid;
+    color: #000000;
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+
+table.GeneratedTable td, table.GeneratedTable th {
+    border-width: 1px;
+    border-color: #eeeeee;
+    border-style: solid;
+    padding: 5px;
+}
+
+table.GeneratedTable thead {
+    background-color: #63c76a;
+    color: #ffffff;
+}

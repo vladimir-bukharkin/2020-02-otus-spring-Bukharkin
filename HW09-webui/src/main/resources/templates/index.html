@@ -34,7 +34,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="book: ${books}">
+            <tr th:each="book: ${books}" th:href="@{/edit(id=${book.id})}" th:method="post" data-href='url://'>
                 <td th:text="${book.id}">5fd7e23d6d1a97658d672090</td>
                 <td th:text="${book.name}">Cell</td>
                 <td th:text="${book.getGenre().name}">Cell</td>

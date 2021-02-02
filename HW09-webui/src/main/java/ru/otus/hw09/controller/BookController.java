@@ -3,6 +3,7 @@ package ru.otus.hw09.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.otus.hw09.dto.Book;
 import ru.otus.hw09.service.BookService;
 
@@ -22,5 +23,12 @@ public class BookController {
         List<Book> books = bookService.findAll();
         model.addAttribute("books", books);
         return "index";
+    }
+
+    @GetMapping("/edit_book")
+    public String getBook(@RequestParam String id,
+                          Model model) {
+        model.addAttribute("book", bookService.findById(id));
+        return "editBook";
     }
 }

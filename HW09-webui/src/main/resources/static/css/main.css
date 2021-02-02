@@ -29,6 +29,18 @@
     padding: 15px;
 }
 
+.central {
+    min-height: 100vh;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fcf5e3;
+    background-size: cover;
+    background-position: center center;
+    padding: 15px;
+}
+
 .header form {
     width: 100%;
     max-width: 790px;
@@ -152,7 +164,7 @@
     background-size: 30px;
 }
 
-table.booksTable {
+table.booksTable{
     width: 100%;
     max-width: 1000px;
     background-color: #ffffff;
@@ -163,6 +175,66 @@ table.booksTable {
     color: #000000;
     box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
     border-radius: 10px;
+}
+
+.edit-book-form{
+    width: 100%;
+    max-width: 600px;
+    min-width: 200px;
+    max-height: 600px;
+    background-color: #ffffff;
+    /*border-collapse: collapse;*/
+    /*border-width: 1px;*/
+    /*border-color: #918d8d;*/
+    /*border-style: solid;*/
+    color: #000000;
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+}
+
+.edit-book-form .row{
+    padding: 5px;
+}
+
+.edit-book-form .row label{
+    display: block;
+    background-color: #63c76a;
+    color: #ffffff;
+    border: none;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px;
+    height: 50px;
+}
+.edit-book-form .row input{
+    display: block;
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    font-size: 20px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px;
+    height: 50px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.15);
+}
+
+.edit-book-form .row button{
+    top:30px;
+    background-color: #63c76a;
+    color: #ffffff;
+    font-size: 20px;
+    height: 60px;
+    width: 40%;
+    border-radius: 10px;
+    background-size: 30px;
+    position: relative;
+    box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
+    border-width: 2px;
+    border-color: #000000;
+    border-style: solid;
 }
 
 table.booksTable td, table.booksTable th {

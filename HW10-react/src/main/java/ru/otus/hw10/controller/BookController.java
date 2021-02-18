@@ -59,11 +59,4 @@ public class BookController {
 
         return assembler.toModel(result);
     }
-
-    @GetMapping("/edit_book")
-    public String getBook(@RequestParam String id,
-                          Model model) {
-        model.addAttribute("book", bookService.findById(id));
-        return "editBook";
-    }
 }

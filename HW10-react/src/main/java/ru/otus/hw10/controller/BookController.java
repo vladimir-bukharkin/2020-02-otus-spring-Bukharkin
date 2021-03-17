@@ -11,6 +11,7 @@ import ru.otus.hw10.service.BookService;
 
 
 @RestController
+@RequestMapping("/api")
 public class BookController {
 
     private final BookService bookService;

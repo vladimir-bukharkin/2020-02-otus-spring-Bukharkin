@@ -1,6 +1,5 @@
 package ru.otus.hw11.dao.cascadeoperations;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.AfterDeleteEvent;
 import org.springframework.stereotype.Component;
@@ -11,8 +10,11 @@ import java.util.Objects;
 @Component
 public class BookCascadeMongoEventListener extends AbstractMongoEventListener<Object> {
 
-    @Autowired
-    private CommentRepository commentRepository;
+    private final CommentRepository commentRepository;
+
+    public BookCascadeMongoEventListener(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
 
     @Override
     public void onAfterDelete(AfterDeleteEvent<Object> event) {

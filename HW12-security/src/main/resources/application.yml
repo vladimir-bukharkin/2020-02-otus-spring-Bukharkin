@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      database: library
+      uri: mongodb://127.0.0.1:27017
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb: DEBUG

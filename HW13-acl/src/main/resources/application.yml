@@ -1,8 +1,16 @@
 spring:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: none
   data:
     mongodb:
       database: library
       uri: mongodb://127.0.0.1:27017
+      repositories:
+        type: none
 
 logging:
   level:
